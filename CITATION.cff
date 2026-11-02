@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software or empirical data, please cite it as below."
+authors:
+  - family-names: "Rongyász"
+    given-names: "Máté"
+    orcid: "https://orcid.org/0009-0003-3986-6039"
+    email: "materobi86@gmail.com"
+    affiliation: "Silent Coder Labs"
+title: "qoi-core: Macroscopic Entrainment and Closed-Loop Attractor Dynamics between a Gross-Pitaevskii Condensate and a 156-Qubit Superconducting Processor"
+version: 1.0.0
+doi: 10.5281/zenodo.qoi-core-v1.0.0
+date-released: 2026-11-02
+url: "https://github.com/silentnoisehun/qoi-core"
+repository-code: "https://github.com/silentnoisehun/qoi-core"
+keywords:
+  - "quantum computing"
+  - "Gross-Pitaevskii equation"
+  - "Bose-Einstein condensate"
+  - "closed-loop feedback"
+  - "IBM Quantum Heron"
+  - "dynamical systems"
+  - "attractor formation"
+license: MIT
