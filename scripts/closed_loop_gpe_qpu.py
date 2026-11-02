@@ -109,13 +109,14 @@ def main():
             c_live = (counts_anchor.get("00", 0) + counts_anchor.get("11", 0)) / args.shots
 
         # 4. Kvantum mérés dekódolása
+        # (Kanonikus formula — megegyezik crates/quantum-protocol/src/decode.rs)
         p_q0_1 = sum(v for k, v in counts_main.items() if k[2] == '1') / args.shots
         p_q1_1 = sum(v for k, v in counts_main.items() if k[1] == '1') / args.shots
         p_q2_1 = sum(v for k, v in counts_main.items() if k[0] == '1') / args.shots
 
-        a_q = 2.0 * math.asin(math.sqrt(p_q0_1))
-        f_q = math.asin(math.sqrt(p_q1_1)) / math.pi * 15.0
-        phi_q = 2.0 * math.asin(math.sqrt(p_q2_1)) / math.pi
+        a_q = 2.0 * math.asin(math.sqrt(max(0.0, min(1.0, p_q0_1))))
+        f_q = math.asin(math.sqrt(max(0.0, min(1.0, p_q1_1)))) / math.pi * 15.0
+        phi_q = 2.0 * math.asin(math.sqrt(max(0.0, min(1.0, p_q2_1)))) / math.pi
 
         # 5. VISSZACSATOLÁS: A QPU mérés gerjeszti a GPE folyadékot!
         fluid.excite(a_q, f_q, phi_q)

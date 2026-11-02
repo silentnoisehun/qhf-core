@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
 """
-Valódi 3-qubites összefonódott áramkörös kvantum-hurok (Heron r2).
+3-qubites kvantum-hurok (Heron r2) — független RY kódolás.
 
-🧬 A 3-QUBITES TOPOLÓGIA:
-A paramétereket (A, f, φ) nem független forgatásokként, hanem egy összefonódott
-W/GHZ állapotba injektáljuk:
-  q0: amplitúdó rotáció RY(A)
-  q1: frekvencia rotáció RY(2πf) + CNOT(q0 -> q1)
-  q2: fázis rotáció RY(φ) + CNOT(q1 -> q2)
-+ Bell anchor paritásellenőrzés (q3, q4)
+🧬 A 3-QUBITES TOPOLÓGIA (JAVÍTOTT):
+Három független RY forgatás kódolja a paramétereket — CNOT nélkül,
+mert az összefonódás elrontja a marginális dekódolást:
+  q0: amplitúdó    RY(A)
+  q1: frekvencia   RY(πf/15)     → asin(√P)/π·15 dekódolás
+  q2: fázis        RY(πφ)        → asin(√P)/π     dekódolás (nem folding)
++ Bell anchor paritásellenőrzés (q3, q4) minden anchor-every iterációnál
 
-Ez közvetlen kvantum-korrelációt létesít a három hidrodinamikai csatorna között.
+MIÉRT NEM CNOT:
+  Ha cx(0,1) a forgatás ELŐTT fut, q1 a méréskor a q0-val keverék állapotban van:
+    P(q1=1) = cos²(A/2)·sin²(θf/2) + sin²(A/2)·cos²(θf/2)
+  Így a dekódolt „f" 50×-szer érzékenyebb A-ra, mint f-re. (Audit §4, 2026-11-02.)
+  A javított séma: független RY → marginális P(qi=1) = sin²(θi/2) → egzakt visszafejtés.
 """
 
 import argparse
@@ -69,13 +73,16 @@ def main():
         t0 = time.time()
         with_anchor = (it % args.anchor_every == 0)
 
-        # 3-qubites összefonódott áramkör felépítése
+        # 3-qubites független RY áramkör (CNOT nélkül)
+        # Kódolás: RY(θ)|0⟩ → P(q=1) = sin²(θ/2)
+        #   A:   θ = A                → P = sin²(A/2)
+        #   f:   θ = 2πf/15           → P = sin²(πf/15)
+        #   φ:   θ = πφ               → P = sin²(πφ/2)
+        # (Kanonikus — megegyezik crates/quantum-protocol/src/encode.rs)
         qc = QuantumCircuit(3, 3)
-        qc.ry(a_fb, 0)
-        qc.cx(0, 1)
-        qc.ry(2.0 * math.pi * (f_fb / 15.0), 1)
-        qc.cx(1, 2)
-        qc.ry(ph_fb * 2.0 * math.pi, 2)
+        qc.ry(a_fb, 0)                              # amplitúdó
+        qc.ry(2.0 * math.pi * (f_fb / 15.0), 1)     # frekvencia
+        qc.ry(ph_fb * math.pi, 2)                   # fázis
         qc.measure([0, 1, 2], [0, 1, 2])
 
         circuits = [qc]
@@ -106,15 +113,15 @@ def main():
             p11 = counts_anchor.get("11", 0)
             c_live = (p00 + p11) / args.shots
 
-        # Dekódolás a mért összefonódott eloszlásból
-        # q0 -> A, q1 -> f, q2 -> phi marginális valószínűségek
+        # Dekódolás: független marginálisok → egzakt visszafejtés
+        # (Kanonikus formula — megegyezik crates/quantum-protocol/src/decode.rs-sel)
         p_q0_1 = sum(v for k, v in counts_main.items() if k[2] == '1') / args.shots
         p_q1_1 = sum(v for k, v in counts_main.items() if k[1] == '1') / args.shots
         p_q2_1 = sum(v for k, v in counts_main.items() if k[0] == '1') / args.shots
 
-        a_fb = 2.0 * math.asin(math.sqrt(p_q0_1))
-        f_fb = math.asin(math.sqrt(p_q1_1)) / math.pi * 15.0
-        ph_fb = 2.0 * math.asin(math.sqrt(p_q2_1)) / (2.0 * math.pi)
+        a_fb = 2.0 * math.asin(math.sqrt(max(0.0, min(1.0, p_q0_1))))
+        f_fb = math.asin(math.sqrt(max(0.0, min(1.0, p_q1_1)))) / math.pi * 15.0
+        ph_fb = 2.0 * math.asin(math.sqrt(max(0.0, min(1.0, p_q2_1)))) / math.pi
 
         entry = {
             "iteration": it,
