@@ -1,0 +1,32 @@
+{
+  "title": "qhf-core: Quantum-Hydrodynamic Feedback Engine and Measurement Audit on Superconducting QPUs",
+  "description": "High-performance Rust engine and measurement audit coupling Gross-Pitaevskii fluid dynamics with IBM Quantum Heron superconducting processors. Documents the algebraic operator analysis, comparison of unentangled projective tracking against CNOT marginal crosstalk, and classical/randomized control arm benchmarks.",
+  "keywords": [
+    "quantum computing",
+    "Gross-Pitaevskii equation",
+    "Bose-Einstein condensate",
+    "closed-loop feedback",
+    "IBM Quantum Heron",
+    "measurement audit",
+    "operator crosstalk"
+  ],
+  "license": "MIT",
+  "version": "1.0.1",
+  "publication_date": "2026-11-02",
+  "creators": [
+    {
+      "name": "Róbert, Máté",
+      "affiliation": "Independent Quantum Researcher, Silent Coder Lab",
+      "orcid": "0009-0003-3986-6039"
+    }
+  ],
+  "access_right": "open",
+  "upload_type": "software",
+  "related_identifiers": [
+    {
+      "relation": "isSupplementedBy",
+      "identifier": "https://github.com/silentnoisehun/qhf-core",
+      "resource_type": "software"
+    }
+  ]
+}
