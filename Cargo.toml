@@ -1,0 +1,34 @@
+[package]
+name = "qoi-core"
+version = "0.1.0"
+edition = "2021"
+description = "Quantum-classical attractor dynamics: a zero-compromise GPE fluid with transfer-operator spectral proof and entangled QPU feedback"
+authors = ["Rongyász (silentnoisehun)"]
+license = "MIT"
+
+[workspace]
+members = [
+    ".",
+    "crates/gpe-engine",
+    "crates/quantum-protocol",
+    "crates/transfer-operator",
+]
+
+[[bin]]
+name = "qoi-core"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
+
+gpe-engine = { path = "crates/gpe-engine" }
+quantum-protocol = { path = "crates/quantum-protocol" }
+transfer-operator = { path = "crates/transfer-operator" }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1

@@ -1,0 +1,15 @@
+[package]
+name = "gpe-engine"
+version = "0.1.0"
+edition = "2021"
+description = "Split-step Fourier GPE solver for 16 cognitive modes — native Rust SIMD"
+
+[dependencies]
+ndarray = "0.16"
+rustfft = "6.2"
+num-complex = "0.4"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[dev-dependencies]
+approx = "0.5"

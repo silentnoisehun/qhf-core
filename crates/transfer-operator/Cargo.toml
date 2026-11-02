@@ -1,0 +1,12 @@
+[package]
+name = "transfer-operator"
+version = "0.1.0"
+edition = "2021"
+description = "Frobenius-Perron transfer operator and spectral proof for nonlinear quantum-classical attractors"
+
+[dependencies]
+ndarray = "0.16"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
+gpe-engine = { path = "../gpe-engine" }
