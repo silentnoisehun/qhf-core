@@ -1,0 +1,1016 @@
+{
+  "tag": "20261102T190149Z_random_control",
+  "mode": "random_control",
+  "iterations": 50,
+  "gpe_steps_per_iter": 50,
+  "shots": 1024,
+  "total_seconds": 0.8709349632263184,
+  "f_q_mean": 7.16953949025473,
+  "f_q_std": 4.213777812003949,
+  "a_q_mean": 0.8537359379962436,
+  "a_q_std": 0.4001964722970606,
+  "mode_sequence": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    0
+  ],
+  "log": [
+    {
+      "iteration": 0,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.9999966029290605,
+        "f": 1.9100401047824355e-05,
+        "phi": 0.9253305262166555
+      },
+      "control_decoded": {
+        "A": 1.201702397467568,
+        "f": 9.443387540651129,
+        "phi": 0.9084923421862273
+      },
+      "wall_seconds": 0.017591476440429688,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 1,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.8867659985355714,
+        "f": 0.11452056105543362,
+        "phi": 0.7469636607131314
+      },
+      "control_decoded": {
+        "A": 0.7551528193378669,
+        "f": 0.2987389861864109,
+        "phi": 0.5325044186347108
+      },
+      "wall_seconds": 0.017479419708251953,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 2,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.7862429567669393,
+        "f": 0.219238434541232,
+        "phi": 0.7712742770004952
+      },
+      "control_decoded": {
+        "A": 1.1889690639853483,
+        "f": 14.528723454604439,
+        "phi": 0.7628707703277706
+      },
+      "wall_seconds": 0.01879429817199707,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 3,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.5874558824633399,
+        "f": 0.41699133683853473,
+        "phi": 0.5877765119911655
+      },
+      "control_decoded": {
+        "A": 0.6005118294105823,
+        "f": 4.052919960405948,
+        "phi": 0.6893809278467576
+      },
+      "wall_seconds": 0.019521713256835938,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 4,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.7829234356299131,
+        "f": 0.21719401052945725,
+        "phi": 0.720748769457671
+      },
+      "control_decoded": {
+        "A": 0.24050270769927376,
+        "f": 10.23175735924147,
+        "phi": 0.9940662617599684
+      },
+      "wall_seconds": 0.017198562622070312,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 5,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.9494711230898661,
+        "f": 0.05061362758688144,
+        "phi": 0.6078490103320109
+      },
+      "control_decoded": {
+        "A": 1.0285943908708575,
+        "f": 14.498760845864764,
+        "phi": 0.9659977705139673
+      },
+      "wall_seconds": 0.017108678817749023,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 6,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.9524734706935323,
+        "f": 0.048056752657149704,
+        "phi": 0.5309324288910728
+      },
+      "control_decoded": {
+        "A": 0.9337063838832972,
+        "f": 9.652863283287182,
+        "phi": 0.658347462948689
+      },
+      "wall_seconds": 0.0172574520111084,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 7,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.9296793229124348,
+        "f": 0.0714192293430556,
+        "phi": 0.42907420127738827
+      },
+      "control_decoded": {
+        "A": 0.6432311807461343,
+        "f": 7.0265078871448425,
+        "phi": 0.6575878739758025
+      },
+      "wall_seconds": 0.01676201820373535,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 8,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.9522062292784262,
+        "f": 0.04815408893457361,
+        "phi": 0.4327739444981095
+      },
+      "control_decoded": {
+        "A": 0.691407288130859,
+        "f": 8.189107370821052,
+        "phi": 0.18328412645720593
+      },
+      "wall_seconds": 0.016722440719604492,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 9,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.8828771793867269,
+        "f": 0.11846214065721523,
+        "phi": 0.34031627246323704
+      },
+      "control_decoded": {
+        "A": 0.19136091844588443,
+        "f": 5.893230240069121,
+        "phi": 0.7341530817223696
+      },
+      "wall_seconds": 0.017544984817504883,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 10,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.8322548827999605,
+        "f": 0.1686132582769346,
+        "phi": 0.3646263322343735
+      },
+      "control_decoded": {
+        "A": 1.4141766974013714,
+        "f": 6.766741749845426,
+        "phi": 0.41187768781909884
+      },
+      "wall_seconds": 0.016668319702148438,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 11,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.9540773725505776,
+        "f": 0.04650747725409615,
+        "phi": 0.28240846433053
+      },
+      "control_decoded": {
+        "A": 0.46869225373584844,
+        "f": 12.79619545325797,
+        "phi": 0.273079230336738
+      },
+      "wall_seconds": 0.01701974868774414,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 12,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.8971414126711627,
+        "f": 0.10350410529255916,
+        "phi": 0.20306641490312172
+      },
+      "control_decoded": {
+        "A": 1.3440030002464076,
+        "f": 8.8694557001078,
+        "phi": 0.75618561173846
+      },
+      "wall_seconds": 0.0167694091796875,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 13,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.9719073828637937,
+        "f": 0.030745341766806666,
+        "phi": 0.30993279762220005
+      },
+      "control_decoded": {
+        "A": 0.45093878449746105,
+        "f": 6.914368824295417,
+        "phi": 0.6982891334132189
+      },
+      "wall_seconds": 0.017925739288330078,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 14,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.9372789266957078,
+        "f": 0.06344447873819856,
+        "phi": 0.21797632470821326
+      },
+      "control_decoded": {
+        "A": 0.7214141405171739,
+        "f": 2.432411890374433,
+        "phi": 0.5965486446572399
+      },
+      "wall_seconds": 0.016701459884643555,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 15,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.9062474295816987,
+        "f": 0.09460533666401995,
+        "phi": 0.16109969751429387
+      },
+      "control_decoded": {
+        "A": 0.6225814547061471,
+        "f": 9.994211227498619,
+        "phi": 0.45468007705756663
+      },
+      "wall_seconds": 0.01677107810974121,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 16,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.9661563650089393,
+        "f": 0.03412758449532555,
+        "phi": 0.07152612943948432
+      },
+      "control_decoded": {
+        "A": 1.4633371770993355,
+        "f": 10.35287128733031,
+        "phi": 0.4292238053052606
+      },
+      "wall_seconds": 0.01655888557434082,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 17,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.962302131893406,
+        "f": 0.03901911810416478,
+        "phi": 0.9674988704065425
+      },
+      "control_decoded": {
+        "A": 0.6701653848614854,
+        "f": 11.424379180037317,
+        "phi": 0.2814120708735224
+      },
+      "wall_seconds": 0.01735687255859375,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 18,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.9933364731228842,
+        "f": 0.009148120104793288,
+        "phi": 0.9103639742597887
+      },
+      "control_decoded": {
+        "A": 0.7899579708873707,
+        "f": 4.68295154727467,
+        "phi": 0.3531568778216577
+      },
+      "wall_seconds": 0.017130613327026367,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 19,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.9432807382102761,
+        "f": 0.058434838179932426,
+        "phi": 0.7917244291930562
+      },
+      "control_decoded": {
+        "A": 1.4765242374494771,
+        "f": 3.220611275923324,
+        "phi": 0.26063691931629984
+      },
+      "wall_seconds": 0.01739668846130371,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 20,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.5512171306015043,
+        "f": 0.4497486139915415,
+        "phi": 0.7013535738950956
+      },
+      "control_decoded": {
+        "A": 0.6488143741366911,
+        "f": 7.74648921258196,
+        "phi": 0.6616984183803252
+      },
+      "wall_seconds": 0.017691373825073242,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 21,
+      "mode": "random_control",
+      "mode_argmax": 1,
+      "fluid_parameters": {
+        "A": 0.7810718607994572,
+        "f": 0.7867906883354272,
+        "phi": 0.8296677259906694
+      },
+      "control_decoded": {
+        "A": 1.1666697797530856,
+        "f": 11.901695969658224,
+        "phi": 0.7551088164963147
+      },
+      "wall_seconds": 0.017024993896484375,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 22,
+      "mode": "random_control",
+      "mode_argmax": 1,
+      "fluid_parameters": {
+        "A": 0.8182365500399251,
+        "f": 0.8307010487342936,
+        "phi": 0.7028376067268326
+      },
+      "control_decoded": {
+        "A": 1.4728425429172034,
+        "f": 13.908989523521479,
+        "phi": 0.6983961714722332
+      },
+      "wall_seconds": 0.016968727111816406,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 23,
+      "mode": "random_control",
+      "mode_argmax": 1,
+      "fluid_parameters": {
+        "A": 0.8715907798335204,
+        "f": 0.8893323548103137,
+        "phi": 0.5307290112042738
+      },
+      "control_decoded": {
+        "A": 1.3400135592125797,
+        "f": 0.7078598934540054,
+        "phi": 0.35793407114306763
+      },
+      "wall_seconds": 0.017363786697387695,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 24,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.7784280567969766,
+        "f": 0.22703124360864968,
+        "phi": 0.8010202105299521
+      },
+      "control_decoded": {
+        "A": 1.2866930905423188,
+        "f": 8.532431995605036,
+        "phi": 0.25797330484973235
+      },
+      "wall_seconds": 0.016928434371948242,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 25,
+      "mode": "random_control",
+      "mode_argmax": 1,
+      "fluid_parameters": {
+        "A": 0.9591891371294226,
+        "f": 0.9672993158044688,
+        "phi": 0.6289855751183528
+      },
+      "control_decoded": {
+        "A": 0.6390123911956355,
+        "f": 0.065617203465822,
+        "phi": 0.041914530875942324
+      },
+      "wall_seconds": 0.017416000366210938,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 26,
+      "mode": "random_control",
+      "mode_argmax": 1,
+      "fluid_parameters": {
+        "A": 0.8939556495420691,
+        "f": 0.9021632895789898,
+        "phi": 0.411008977580537
+      },
+      "control_decoded": {
+        "A": 1.1775815616614536,
+        "f": 6.309715688079368,
+        "phi": 0.31427432518945764
+      },
+      "wall_seconds": 0.0168001651763916,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 27,
+      "mode": "random_control",
+      "mode_argmax": 1,
+      "fluid_parameters": {
+        "A": 0.6825173422342886,
+        "f": 0.7376811366551693,
+        "phi": 0.6574554808275921
+      },
+      "control_decoded": {
+        "A": 0.2782969011415476,
+        "f": 0.364881656599812,
+        "phi": 0.2527404073134094
+      },
+      "wall_seconds": 0.018616437911987305,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 28,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.7200529412472567,
+        "f": 0.2944966102456487,
+        "phi": 0.244609870508663
+      },
+      "control_decoded": {
+        "A": 0.5567215341501096,
+        "f": 0.5308407069606491,
+        "phi": 0.1305980310848498
+      },
+      "wall_seconds": 0.01688671112060547,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 29,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.777381803817251,
+        "f": 0.25592831919297443,
+        "phi": 0.06375555011330945
+      },
+      "control_decoded": {
+        "A": 0.3670105312684664,
+        "f": 14.204507914175108,
+        "phi": 0.18492111956771606
+      },
+      "wall_seconds": 0.01690363883972168,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 30,
+      "mode": "random_control",
+      "mode_argmax": 1,
+      "fluid_parameters": {
+        "A": 0.6587962370466314,
+        "f": 0.7027110993667341,
+        "phi": 0.37583775895709587
+      },
+      "control_decoded": {
+        "A": 0.6673029767135068,
+        "f": 1.0467429546155471,
+        "phi": 0.7411323072143807
+      },
+      "wall_seconds": 0.017530202865600586,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 31,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.7253048046319757,
+        "f": 0.29726848717680726,
+        "phi": 0.02743599643988499
+      },
+      "control_decoded": {
+        "A": 0.4156743225715731,
+        "f": 0.6051192634355007,
+        "phi": 0.06448655481304633
+      },
+      "wall_seconds": 0.017145872116088867,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 32,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.7806263271472382,
+        "f": 0.3051010786201414,
+        "phi": 0.6353918715746347
+      },
+      "control_decoded": {
+        "A": 0.2963186848030943,
+        "f": 8.26279329459545,
+        "phi": 0.4131833940289361
+      },
+      "wall_seconds": 0.017680883407592773,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 33,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.8487996373510818,
+        "f": 0.18584333853411114,
+        "phi": 0.22023436820110803
+      },
+      "control_decoded": {
+        "A": 1.3608608960839104,
+        "f": 6.228613243899771,
+        "phi": 0.6227101233705232
+      },
+      "wall_seconds": 0.016794204711914062,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 34,
+      "mode": "random_control",
+      "mode_argmax": 1,
+      "fluid_parameters": {
+        "A": 0.7165233928210607,
+        "f": 0.7349116106066106,
+        "phi": 0.059973781542166635
+      },
+      "control_decoded": {
+        "A": 1.1451798560338735,
+        "f": 9.702850354878061,
+        "phi": 0.20996557519543246
+      },
+      "wall_seconds": 0.018578052520751953,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 35,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.8974154365829515,
+        "f": 0.1134898750320136,
+        "phi": 0.11252124841181073
+      },
+      "control_decoded": {
+        "A": 0.8091461066384577,
+        "f": 12.29793899344649,
+        "phi": 0.837144437586897
+      },
+      "wall_seconds": 0.017627716064453125,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 36,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.7266027998327643,
+        "f": 0.2898927632789982,
+        "phi": 0.9370812912493939
+      },
+      "control_decoded": {
+        "A": 1.4897280427414255,
+        "f": 4.641929120208989,
+        "phi": 0.25174227569340046
+      },
+      "wall_seconds": 0.017078638076782227,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 37,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.874058405448518,
+        "f": 0.13700293739948727,
+        "phi": 0.8586731442516472
+      },
+      "control_decoded": {
+        "A": 1.2150615904393354,
+        "f": 9.792366138997206,
+        "phi": 0.8201866481679587
+      },
+      "wall_seconds": 0.0190582275390625,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 38,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.7099914222925041,
+        "f": 0.2949779896436049,
+        "phi": 0.574840700069976
+      },
+      "control_decoded": {
+        "A": 0.19376370511143295,
+        "f": 0.9058816861893015,
+        "phi": 0.13770228627948922
+      },
+      "wall_seconds": 0.01660299301147461,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 39,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.6400138088976272,
+        "f": 0.3802128582690523,
+        "phi": 0.9654211065413268
+      },
+      "control_decoded": {
+        "A": 0.8603004014330354,
+        "f": 12.934184750986589,
+        "phi": 0.014250024187010935
+      },
+      "wall_seconds": 0.017075300216674805,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 40,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.9220381609111689,
+        "f": 0.08391475639370141,
+        "phi": 0.6782687265244515
+      },
+      "control_decoded": {
+        "A": 1.0536650292368481,
+        "f": 3.5129140103963237,
+        "phi": 0.10863568018663305
+      },
+      "wall_seconds": 0.017334938049316406,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 41,
+      "mode": "random_control",
+      "mode_argmax": 1,
+      "fluid_parameters": {
+        "A": 0.7739724385026289,
+        "f": 1.0035379044384822,
+        "phi": 0.7656100642593066
+      },
+      "control_decoded": {
+        "A": 1.0928863418848702,
+        "f": 7.982862130565593,
+        "phi": 0.94125739529369
+      },
+      "wall_seconds": 0.017075300216674805,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 42,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.9326142471857253,
+        "f": 0.07978763873769218,
+        "phi": 0.6941314052761623
+      },
+      "control_decoded": {
+        "A": 0.9214322497819002,
+        "f": 3.1065623078552362,
+        "phi": 0.9759017704268113
+      },
+      "wall_seconds": 0.017482995986938477,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 43,
+      "mode": "random_control",
+      "mode_argmax": 1,
+      "fluid_parameters": {
+        "A": 0.61481889195698,
+        "f": 0.6258210488794852,
+        "phi": 0.822102634801427
+      },
+      "control_decoded": {
+        "A": 0.7827690125843579,
+        "f": 10.33818648604625,
+        "phi": 0.7058423986670994
+      },
+      "wall_seconds": 0.017239809036254883,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 44,
+      "mode": "random_control",
+      "mode_argmax": 1,
+      "fluid_parameters": {
+        "A": 0.6600567597446212,
+        "f": 0.6780096293218528,
+        "phi": 0.6647207052855392
+      },
+      "control_decoded": {
+        "A": 0.8583834811468836,
+        "f": 3.4851799318648133,
+        "phi": 0.17398473074988985
+      },
+      "wall_seconds": 0.016863584518432617,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 45,
+      "mode": "random_control",
+      "mode_argmax": 1,
+      "fluid_parameters": {
+        "A": 0.652398320304668,
+        "f": 0.7105226187468492,
+        "phi": 0.4619434649583478
+      },
+      "control_decoded": {
+        "A": 0.14036899944010914,
+        "f": 9.294300728916237,
+        "phi": 0.39745040640240326
+      },
+      "wall_seconds": 0.017680883407592773,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 46,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.7360156240889375,
+        "f": 0.32827358212715263,
+        "phi": 0.04739451210701237
+      },
+      "control_decoded": {
+        "A": 1.3545817803262454,
+        "f": 8.449877365657512,
+        "phi": 0.6874332798133952
+      },
+      "wall_seconds": 0.017070531845092773,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 47,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.6881402177584564,
+        "f": 0.3603828275690612,
+        "phi": 0.4643572297869573
+      },
+      "control_decoded": {
+        "A": 0.8176534692244439,
+        "f": 4.075203152607782,
+        "phi": 0.5620407560113829
+      },
+      "wall_seconds": 0.017395734786987305,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 48,
+      "mode": "random_control",
+      "mode_argmax": 1,
+      "fluid_parameters": {
+        "A": 0.8429942233345358,
+        "f": 0.9370997366388761,
+        "phi": 0.22967836629821167
+      },
+      "control_decoded": {
+        "A": 0.18193922046173056,
+        "f": 6.049703981891103,
+        "phi": 0.3816794605538788
+      },
+      "wall_seconds": 0.01908731460571289,
+      "meta": {
+        "randomized": true
+      }
+    },
+    {
+      "iteration": 49,
+      "mode": "random_control",
+      "mode_argmax": 0,
+      "fluid_parameters": {
+        "A": 0.5228426618813972,
+        "f": 0.5055856968681226,
+        "phi": 0.5884153829131495
+      },
+      "control_decoded": {
+        "A": 1.1991943857963068,
+        "f": 10.22053978735959,
+        "phi": 0.7371293684781489
+      },
+      "wall_seconds": 0.018558979034423828,
+      "meta": {
+        "randomized": true
+      }
+    }
+  ]
+}
