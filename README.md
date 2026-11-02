@@ -13,6 +13,13 @@
 **Contact:** materobi86@gmail.com  
 **CERN / Zenodo Archive DOI:** [10.5281/zenodo.23890614](https://doi.org/10.5281/zenodo.23890614)  
 
+
+> ### ⚠️ Methodology & Peer-Review Status
+> **Current Evaluation:** The reported frequency shift ($\Delta f = -1.735$, $t$-test $p < 10^{-12}$) decisively establishes attractor stabilization against shot-noise drift within the numerical feedback loop.
+> **Mandatory Classical Control Arm:** To arbitrate whether this stabilization represents classical algorithmic feedback or physical transmon-specific entrainment, a full classical randomized control arm (identical loop topology driven by synthetic/randomized feedback rather than physical QPU measurements) is underway. 
+> Peer-reviewed journal submission is deferred until the classical control arm is completed.
+
+
 ---
 
 ## 🔬 Scientific Overview
