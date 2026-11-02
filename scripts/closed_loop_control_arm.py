@@ -33,14 +33,11 @@ def simulate_circuit_counts(a_fluid, f_fluid, phi_fluid, shots=1024, rng=None):
     if rng is None:
         rng = np.random.default_rng()
 
-    # Analytical probabilities for each qubit marginal:
-    # qc.ry(a_fluid, 0) -> P(q0=1) = sin^2(a_fluid / 2)
+    # Analytical probabilities for independent qubit marginals:
     p0 = math.sin(a_fluid / 2.0) ** 2
-    # Qubit 1: modulated by f_fluid
     theta_1 = 2.0 * math.pi * (f_fluid / 15.0)
     p1 = math.sin(theta_1 / 2.0) ** 2
-    # Qubit 2: modulated by phi_fluid
-    theta_2 = phi_fluid * 2.0 * math.pi
+    theta_2 = phi_fluid * math.pi
     p2 = math.sin(theta_2 / 2.0) ** 2
 
     # Clip to valid probability bounds [0, 1]
@@ -60,7 +57,7 @@ def simulate_circuit_counts(a_fluid, f_fluid, phi_fluid, shots=1024, rng=None):
     # Decoding logic identical to closed_loop_gpe_qpu.py
     a_q = 2.0 * math.asin(math.sqrt(min(max(p_meas_0, 0.0), 1.0)))
     f_q = math.asin(math.sqrt(min(max(p_meas_1, 0.0), 1.0))) / math.pi * 15.0
-    phi_q = 2.0 * math.asin(math.sqrt(min(max(p_meas_2, 0.0), 1.0))) / (2.0 * math.pi)
+    phi_q = 2.0 * math.asin(math.sqrt(min(max(p_meas_2, 0.0), 1.0))) / math.pi
 
     return a_q, f_q, phi_q, {"p0": p_meas_0, "p1": p_meas_1, "p2": p_meas_2}
 

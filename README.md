@@ -1,4 +1,4 @@
-# qoi-core: Quantum Organic Intelligence Core Engine
+# qoi-core: Quantum-Hydrodynamic Feedback Engine (QHF-Core)
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23890614.svg)](https://doi.org/10.5281/zenodo.23890614)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0003--3986--6039-green.svg)](https://orcid.org/0009-0003-3986-6039)

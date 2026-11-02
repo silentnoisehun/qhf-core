@@ -77,13 +77,11 @@ def main():
         mode_argmax, a_fluid, f_fluid, phi_fluid, energies = fluid.extract_modal_parameters()
         mode_history.append(mode_argmax)
 
-        # 3. Kódolás a 3-qubites összefonódott kvantumáramkörbe
+        # 3. Kódolás független rotációkkal (CNOT crosstalk nélkül az egzakt marginális dekódoláshoz)
         qc = QuantumCircuit(3, 3)
         qc.ry(a_fluid, 0)
-        qc.cx(0, 1)
         qc.ry(2.0 * math.pi * (f_fluid / 15.0), 1)
-        qc.cx(1, 2)
-        qc.ry(phi_fluid * 2.0 * math.pi, 2)
+        qc.ry(phi_fluid * math.pi, 2)
         qc.measure([0, 1, 2], [0, 1, 2])
 
         circuits = [qc]
@@ -117,7 +115,7 @@ def main():
 
         a_q = 2.0 * math.asin(math.sqrt(p_q0_1))
         f_q = math.asin(math.sqrt(p_q1_1)) / math.pi * 15.0
-        phi_q = 2.0 * math.asin(math.sqrt(p_q2_1)) / (2.0 * math.pi)
+        phi_q = 2.0 * math.asin(math.sqrt(p_q2_1)) / math.pi
 
         # 5. VISSZACSATOLÁS: A QPU mérés gerjeszti a GPE folyadékot!
         fluid.excite(a_q, f_q, phi_q)
