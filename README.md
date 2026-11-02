@@ -1,6 +1,6 @@
 # qoi-core: Quantum Organic Intelligence Core Engine
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.qoi-core-v1.0.0.svg)](https://zenodo.org/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23890614.svg)](https://doi.org/10.5281/zenodo.23890614)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0003--3986--6039-green.svg)](https://orcid.org/0009-0003-3986-6039)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![IBM Quantum](https://img.shields.io/badge/IBM%20Quantum-Heron%20r2%20(156q)-blue.svg)](https://quantum.ibm.com/)
@@ -11,7 +11,7 @@
 **Affiliation:** Silent Coder Labs  
 **ORCID:** [0009-0003-3986-6039](https://orcid.org/0009-0003-3986-6039)  
 **Contact:** materobi86@gmail.com  
-**CERN / Zenodo Archive DOI Target:** `10.5281/zenodo.qoi-core-v1.0.0`  
+**CERN / Zenodo Archive DOI:** [10.5281/zenodo.23890614](https://doi.org/10.5281/zenodo.23890614)  
 
 ---
 
@@ -53,7 +53,7 @@ If you use this work, software, or the raw Heron QPU measurement dataset in acad
   author={Rongy{\'a}sz, M{\'a}t{\'e}},
   journal={Silent Coder Research Repository},
   year={2026},
-  doi={10.5281/zenodo.qoi-core-v1.0.0},
+  doi={10.5281/zenodo.23890614},
   url={https://github.com/silentnoisehun/qoi-core}
 }
 ```

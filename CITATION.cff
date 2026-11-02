@@ -7,8 +7,8 @@ authors:
     email: "materobi86@gmail.com"
     affiliation: "Silent Coder Labs"
 title: "qoi-core: Macroscopic Entrainment and Closed-Loop Attractor Dynamics between a Gross-Pitaevskii Condensate and a 156-Qubit Superconducting Processor"
-version: 1.0.0
-doi: 10.5281/zenodo.qoi-core-v1.0.0
+version: 1.0.1
+doi: 10.5281/zenodo.23890614
 date-released: 2026-11-02
 url: "https://github.com/silentnoisehun/qoi-core"
 repository-code: "https://github.com/silentnoisehun/qoi-core"
