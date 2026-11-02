@@ -64,3 +64,12 @@ If you use this work, software, or the raw Heron QPU measurement dataset in acad
   url={https://github.com/silentnoisehun/qoi-core}
 }
 ```
+
+---
+
+## 🤝 Contact & Research Collaboration
+
+- **Author:** Máté Róbert
+- **Email:** `materobi86@gmail.com`
+- **GitHub:** [`silentnoisehun`](https://github.com/silentnoisehun)
+- **Status:** **Open to research collaborations, academic partnerships, and joint QPU experimental campaigns** *(Nyitott vagyok kutatási együttműködésekre és közös publikációkra)*.
