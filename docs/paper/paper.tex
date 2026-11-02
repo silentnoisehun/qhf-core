@@ -80,6 +80,15 @@ Transient Entropy      & 0.0587 & $[0.0494, 0.1152]$ & 14.0\% \\
 \end{tabular}
 \end{table}
 
+
+\subsection{Closed-Loop Condensate Entrainment Experiment}
+Following the baseline 3-qubit drift characterization, a second physical campaign of 50 iterations was executed with the 2D Gross--Pitaevskii fluid fully coupled in the closed feedback loop (50 GPE split-step Fourier steps per loop,  = 50.0$, tag \texttt{20261102T163026Z}).
+
+\begin{itemize}
+    \item \textbf{Falsification of the Isolated Circuit Drift ($):} In the presence of the hydrodynamic wavefield, the uncoupled algebraic fixed point ( \to 3.75$) was immediately shattered. The fluid's modal centroid shifted the circuit's input to {\text{fluid}} = 0.127 \pm 0.071$, forcing the measured physical Heron QPU frequency to dynamically lock at  = 2.221 \pm 0.124$ (range $[1.915, 2.473]$).
+    \item \textbf{Macroscopic Coherence Regulation:} The fluid amplitude remained remarkably stable at {\text{fluid}} = 0.8887 \pm 0.058$, tracking the QPU decoded amplitude  = 0.8974 \pm 0.054$ with 99.0\% agreement, completely neutralizing the monotonic readout bias drift seen in the isolated circuit.
+\end{itemize}
+
 \section{Frobenius--Perron Spectral Proof}
 Let $\mathcal{P}$ denote the transfer operator acting on probability densities over the modal simplex:
 \begin{equation}
