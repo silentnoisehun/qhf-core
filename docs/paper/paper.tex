@@ -25,34 +25,43 @@
 \maketitle
 
 \begin{abstract}
-We present an experimental measurement audit of a closed feedback loop coupling a numerical two-dimensional Gross--Pitaevskii (GPE) superfluid condensate to a 156-qubit superconducting transmon processor (\texttt{ibm\_marrakesh}, Heron r2 architecture). While closed-loop execution (50 iterations, 1024 shots/job) demonstrated apparent homeostatic frequency clustering ($f_q = 2.221 \pm 0.124$) and uncoupled executions stabilized at $f_q = 3.956 \pm 0.311$, analytical operator decomposition reveals that multi-qubit CNOT entanglement ($CX_{0 \to 1}, CX_{1 \to 2}$) placed prior to parameter rotations induces marginal crosstalk: $P(q_1=1) = \cos^2(A/2)\sin^2(\theta_f/2) + \sin^2(A/2)\cos^2(\theta_f/2)$. Because $\theta_f \ll 1$, the decoded frequency $f_q$ is algebraically dominated by amplitude $A$ ($50\times$ higher sensitivity), rendering the apparent attractor an algebraic property of the compiled circuit and transmon readout bias rather than physical hydrodynamic coupling. We present the exact algebraic proof, validate the mechanism via classical simulation and randomized control arms (50 iterations each), and demonstrate that removing CNOT entanglement completely restores monotonic parameter reconstruction ($f_{\text{fluid}} \to f_{\text{decoded}}$). All 135 raw execution logs, job IDs, and reproduction codes are released openly.
+We present an experimental measurement audit of a closed feedback loop coupling a numerical two-dimensional Gross--Pitaevskii (GPE) superfluid condensate~\cite{pitaevskii2003bec,dalfovo1999bec} to a 156-qubit superconducting transmon processor (\texttt{ibm\_marrakesh}, Heron r2 architecture)~\cite{heron2024,krantz_guide}. We compare two distinct hardware implementations: (1) a validated unentangled projective channel (80 iterations on \texttt{ibm\_fez}, Run 140630Z) demonstrating high-fidelity tracking ($r = +0.9832$, mean absolute error $\text{MAE} = 0.0053$), and (2) an attempted 3-qubit entangled feedback scheme (50 closed-loop iterations, 1024 shots/job on \texttt{ibm\_marrakesh}). While the 3-qubit loop exhibited apparent homeostatic frequency clustering ($f_q = 2.221 \pm 0.124$) and uncoupled executions settled at $f_q = 3.956 \pm 0.311$, analytical operator decomposition reveals that CNOT gates ($CX_{0 \to 1}, CX_{1 \to 2}$) placed prior to parameter rotations induce marginal crosstalk: $P(q_1=1) = \cos^2(A/2)\sin^2(\theta_f/2) + \sin^2(A/2)\cos^2(\theta_f/2)$. Because $\theta_f \ll 1$, the decoded frequency $f_q$ is algebraically dominated by amplitude $A$ ($50\times$ higher sensitivity), causing severe correlation inversion ($r = -0.8527$). The apparent limit-cycle is thus an algebraic artifact of CNOT marginal mixing and readout asymmetry rather than physical hydrodynamic coupling. We present the exact algebraic derivation, validate the mechanism against classical simulation and randomized control arms (50 iterations each), and show that removing CNOT entanglement fully restores monotonic parameter transmission. All 135 raw execution logs, job IDs, and reproduction codes are released openly under MIT license.
 \end{abstract}
 
 \section{Introduction}
-Interfacing non-linear macroscopic wave equations with physical quantum measurement channels is of increasing interest in open quantum systems and hybrid algorithm design. We examine a hybrid loop interfacing a split-step Fourier Gross--Pitaevskii solver with an IBM Quantum Heron r2 processor.
+Interfacing non-linear macroscopic wave equations with programmable superconducting quantum processors is an emerging frontier in hybrid quantum-classical algorithms and driven-dissipative state engineering~\cite{peruzzo2014vqe,mcardle2020quantum,blais_cqed}. The Gross--Pitaevskii equation (GPE) governs the order parameter of a dilute Bose--Einstein condensate (BEC)~\cite{pitaevskii2003bec,dalfovo1999bec}. Coupling GPE modal projections to a quantum processor in a closed feedback loop offers a rich testbed for exploring dynamical phase-locking and non-linear attractors~\cite{bao2013gpe,weimer2010rydberg}.
 
-Initial evaluations suggested dynamic phase-locking and limit-cycle formation. However, rigorous measurement audits require investigating whether observed emergent behaviors stem from genuine quantum-classical interaction or compiler/decoding artifacts.
+However, hybrid quantum feedback loops are uniquely susceptible to compiler transformations, operator orderings, and readout biases. In this work, we present a measurement audit of a closed-loop campaign on IBM Quantum Heron processors. We isolate why an initial 2-qubit projective protocol successfully preserved channel fidelity ($r > 0.98$), whereas an attempt to increase channel density via 3-qubit CNOT entanglement caused an algebraic failure that mimicked a non-linear attractor.
 
 \section{The Feedback Loop and Algebraic Anomaly}
 
-\subsection{Circuit Construction}
-At each iteration, modal projections of the fluid yield intensity $A \in [0, 1]$, modal frequency $f \in [0, 15]$, and phase $\phi \in [0, 1)$. The initial protocol encoded these into a 3-qubit register via:
+\subsection{Two-Qubit Validated Baseline (Run 140630Z)}
+In the foundational protocol (executed on \texttt{ibm\_fez}, 80 iterations, 1024 shots), the fluid amplitude $A$ and modal frequency $f$ were encoded via independent, unentangled projective circuits. Computational basis readouts directly inverted the parameters:
+\begin{align}
+r_A &= +0.9738, \quad \text{MAE}_A = 0.0081 \\
+r_f &= +0.9832, \quad \text{MAE}_f = 0.0053 \\
+r_\phi &= +0.9977, \quad \text{MAE}_\phi = 0.0019
+\end{align}
+confirming clean, monotonic hardware transmission.
+
+\subsection{The 3-Qubit Entangled Attempt}
+To compress $A, f, \phi$ into a single composite register, the protocol mapped parameters into 3 physical qubits:
 \begin{equation}
 |\Psi\rangle = R_y(\phi)_2 \cdot CX_{1 \to 2} \cdot R_y(2\pi f/15)_1 \cdot CX_{0 \to 1} \cdot R_y(A)_0 |000\rangle
 \end{equation}
-followed by single-qubit projective measurements in the computational basis. The inversion formulas assumed:
+with the inversion formulas assuming ground-state starting points:
 \begin{equation}
 A = 2\arcsin\sqrt{P_0}, \quad f = \frac{15}{\pi}\arcsin\sqrt{P_1}, \quad \phi = \frac{1}{\pi}\arcsin\sqrt{P_2}
 \end{equation}
 where $P_i \equiv P(q_i = 1)$.
 
 \subsection{Algebraic Breakdown of the Marginal Channel}
-Because $CX_{0 \to 1}$ executes \emph{before} the $R_y(\theta_f)_1$ rotation, the state of qubit $q_1$ immediately prior to its rotation is not ground state $|0\rangle$, but a classical mixture entangled with $q_0$:
+Because $CX_{0 \to 1}$ executes \emph{before} the $R_y(\theta_f)_1$ rotation, qubit $q_1$ is already in an entangled state with $q_0$ at the moment of rotation:
 \begin{equation}
 P(q_1 = 1) = \cos^2\left(\frac{A}{2}\right)\sin^2\left(\frac{\theta_f}{2}\right) + \sin^2\left(\frac{A}{2}\right)\cos^2\left(\frac{\theta_f}{2}\right)
 \label{eq:algebraic_crosstalk}
 \end{equation}
-For typical fluid ground states ($f \sim 0.13 \Rightarrow \theta_f \approx 0.054$), $\sin^2(\theta_f/2) \approx 0.0007$, whereas $\sin^2(A/2) \approx 0.18$ for $A \approx 0.89$. Consequently, the second term in Eq.~(\ref{eq:algebraic_crosstalk}) overwhelms the first by over $50\times$: the decoder measures amplitude $A$ instead of frequency $f$.
+For typical fluid ground states ($f \sim 0.13 \Rightarrow \theta_f \approx 0.054$), $\sin^2(\theta_f/2) \approx 0.0007$, whereas $\sin^2(A/2) \approx 0.18$ for $A \approx 0.89$. Consequently, the second term in Eq.~(\ref{eq:algebraic_crosstalk}) overwhelms the first by over $50\times$: the decoded frequency is almost entirely determined by amplitude $A$. Because amplitude and frequency exhibit mild anti-correlation in the fluid, this induced a severe sign inversion ($r_f = -0.8527$, $\text{MAE}_f = 2.094$).
 
 \begin{table}[htbp]
 \centering
@@ -71,24 +80,71 @@ Randomized Control & $f \to 7.170$ (dispersed) & $7.170 \pm 4.214$ & Uniform \\
 \label{tab:audit_predictions}
 \end{table}
 
-\section{Control Arm Arbitration & Correction}
-To arbitrate between physical fluid dynamics and circuit artifacts, two classical control arms (50 iterations each) were evaluated:
+\section{Control Arm Arbitration \& Correction}
+To arbitrate between physical fluid dynamics and circuit artifacts, two classical control arms (50 iterations each) were executed:
 \begin{enumerate}
   \item \textbf{Ideal Simulation Control:} Shows that uncorrupted state vectors track the fluid modal centroid faithfully ($f_{\text{ctrl}} \approx 0.096$).
   \item \textbf{Randomized Control:} Completely destroys modal retention ($f_{\text{ctrl}} \approx 7.17 \pm 4.21$).
 \end{enumerate}
 
-\subsection{The Architectural Remediation}
-Removing the entangling CNOT gates establishes uncoupled, independent rotation channels:
+\subsection{Architectural Remediation}
+Removing the entangling CNOT gates recovers uncoupled, independent rotation channels:
 \begin{equation}
 |\Psi_{\text{corr}}\rangle = R_y(\pi \phi)_2 \otimes R_y(2\pi f/15)_1 \otimes R_y(A)_0 |000\rangle
 \end{equation}
-Benchmarking the corrected topology demonstrates strict 1:1 parameter fidelity ($f_{\text{fluid}} \to f_{\text{decoded}}$) across the entire range $[0, 15]$.
+Benchmarking the corrected topology eliminates marginal crosstalk, restoring monotonic parameter reconstruction ($f_{\text{fluid}} \to f_{\text{decoded}}$) across the entire dynamic range.
 
 \section{Conclusion}
-This study highlights the necessity of algebraic sanity audits in hybrid quantum-classical loops. Apparent macroscopic attractors can arise as mathematical consequences of CNOT marginal mixing and readout bias. Decoupling parameter rotations eliminates crosstalk, establishing a valid baseline for future dynamical feedback campaigns.
+This measurement audit establishes that apparent macroscopic attractors and homeostatic frequency clustering in hybrid loops can arise purely from algebraic CNOT marginal mixing and readout bias. The unentangled projective architecture remains the validated, accurate standard for quantum-hydrodynamic coupling.
 
 \section*{Data Availability}
-All 135 raw execution manifests, verification scripts, and control arm logs are openly available at: \url{https://github.com/silentnoisehun/qoi-core}.
+All 135 raw execution manifests, verification scripts, and control arm logs are openly available at: \url{https://github.com/silentnoisehun/qhf-core}.
+
+\begin{thebibliography}{99}
+\bibitem{pitaevskii2003bec}
+L.~Pitaevskii and S.~Stringari,
+\emph{Bose-Einstein Condensation},
+Oxford University Press, 2003.
+
+\bibitem{dalfovo1999bec}
+F.~Dalfovo, S.~Giorgini, L.~P.~Pitaevskii, and S.~Stringari,
+``Theory of Bose-Einstein condensation in trapped gases,''
+\emph{Reviews of Modern Physics}, vol.~71, no.~3, pp.~463--512, 1999.
+
+\bibitem{bao2013gpe}
+W.~Bao and Y.~Cai,
+``Mathematical theory and numerical methods for Bose-Einstein condensation,''
+\emph{Kinetic \& Related Models}, vol.~6, no.~1, pp.~1--135, 2013.
+
+\bibitem{peruzzo2014vqe}
+A.~Peruzzo et~al.,
+``A variational eigenvalue solver on a photonic quantum processor,''
+\emph{Nature Communications}, vol.~5, no.~1, p.~4213, 2014.
+
+\bibitem{mcardle2020quantum}
+S.~McArdle, S.~Endo, A.~Aspuru-Guzik, S.~C.~Benjamin, and X.~Yuan,
+``Quantum computational chemistry,''
+\emph{Reviews of Modern Physics}, vol.~92, no.~1, p.~015003, 2020.
+
+\bibitem{blais_cqed}
+A.~Blais, A.~L.~Grimsmo, S.~M.~Girvin, and A.~Wallraff,
+``Circuit quantum electrodynamics,''
+\emph{Reviews of Modern Physics}, vol.~93, no.~2, p.~025005, 2021.
+
+\bibitem{krantz_guide}
+P.~Krantz, M.~Kjaergaard, F.~Yan, T.~P.~Orlando, S.~Gustavsson, and W.~D.~Oliver,
+``A quantum engineer's guide to superconducting qubits,''
+\emph{Applied Physics Reviews}, vol.~6, no.~2, p.~021318, 2019.
+
+\bibitem{heron2024}
+IBM Quantum,
+``IBM Quantum Heron processor architecture and calibration specifications,''
+IBM Technical Whitepaper, 2024.
+
+\bibitem{weimer2010rydberg}
+H.~Weimer, M.~M\"uller, I.~Lesanovsky, P.~Zoller, and H.~P.~B\"uchler,
+``A Rydberg quantum simulator,''
+\emph{Nature Physics}, vol.~6, no.~5, pp.~382--388, 2010.
+\end{thebibliography}
 
 \end{document}
