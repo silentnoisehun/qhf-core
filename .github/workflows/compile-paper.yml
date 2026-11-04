@@ -1,0 +1,26 @@
+name: Compile LaTeX Paper
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra latexmk
+      
+      - name: Compile paper
+        working-directory: docs/paper
+        run: |
+          latexmk -pdf -interaction=nonstopmode paper.tex
+      
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper-pdf
+          path: docs/paper/paper.pdf
