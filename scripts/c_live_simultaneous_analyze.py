@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 c_live_simultaneous kiertekelese: szimultan 5-qubites blokkonkenti d = c_F - c_N.
+Amendment 1: Teljes elmeleti es szamitasi konzisztencia az eloregisztracioval.
 """
 
 import json
@@ -29,7 +30,6 @@ def main():
 
     blocks = {}
     for r in recs:
-        # ujraszamolas a nyers countsbol
         counts = r["counts"]
         shots = sum(counts.values())
         n_00 = sum(v for k, v in counts.items() if k[0] == "0" and k[1] == "0")
@@ -44,24 +44,36 @@ def main():
         sys.exit(f"Keves teljes blokk ({n}).")
 
     mean = sum(diffs) / n
-    sd = math.sqrt(sum((x - mean) ** 2 for x in diffs) / (n - 1))
-    se = sd / math.sqrt(n)
-    t = mean / se if se > 0 else float("inf")
-    p = t_sf(t, n - 1)
+    sd = math.sqrt(sum((x - mean) ** 2 for x in diffs) / (n - 1)) if n > 1 else 0.0
+    se = sd / math.sqrt(n) if n > 0 else 0.0
+    
+    if se > 0:
+        t = mean / se
+        p_one_sided = t_sf(t, n - 1)
+        p_two_sided = 2.0 * t_sf(abs(t), n - 1)
+    else:
+        t = 0.0
+        p_one_sided = 1.0 if mean <= 0 else 0.0
+        p_two_sided = 1.0 if mean == 0 else 0.0
+
     half = n // 2
     m1 = sum(diffs[:half]) / max(1, half)
     m2 = sum(diffs[half:]) / max(1, n - half)
     cF = [blocks[b]["F"] for b in complete]
     cN = [blocks[b]["N"] for b in complete]
 
-    ok1, ok2, ok3 = mean >= DELTA_MIN, p < ALPHA, (m1 > 0 and m2 > 0)
+    # Dontesi szabaly (eloregisztralt egyoldalu H1: a GPE-hurok noveli vagy vedi a Bell-korrelaciot):
+    ok1 = mean >= DELTA_MIN
+    ok2 = p_one_sided < ALPHA
+    ok3 = (m1 > 0 and m2 > 0)
     verdict = "H1 TAMOGATOTT" if (ok1 and ok2 and ok3) else "H1 NEM TAMOGATOTT (a tankonyvi d = 0 all)"
 
     out = {
         "campaign": meta["campaign"], "backend": meta["backend"], "dry_run": meta["dry_run"],
         "layout": meta["layout"], "complete_blocks": n,
         "mean_c_F": sum(cF) / n, "mean_c_N": sum(cN) / n,
-        "mean_diff": mean, "sd_diff": sd, "t": t, "p_one_sided": p,
+        "mean_diff": mean, "sd_diff": sd, "t": t,
+        "p_one_sided": p_one_sided, "p_two_sided": p_two_sided,
         "first_half_mean_diff": m1, "second_half_mean_diff": m2,
         "criteria": {"delta>=0.003": ok1, "p<0.01": ok2, "both_halves_positive": ok3},
         "verdict": verdict,

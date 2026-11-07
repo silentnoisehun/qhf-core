@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
 """
-c_live_simultaneous: Szimultan 5-qubites fizikai spektator csatolas tesztje Heron processzoron.
+c_live_simultaneous: Szimultan 5-qubites spektator csatolas tesztje Heron processzoron.
 
-Elrendezes:
-  Fizikai transzmon lanc: [0 - 1 - 2] -- [3 - 4]
-  - [0, 1, 2]: GPE fo aramkor (A, f, phi forgatasok)
-  - [3, 4]: Bell-horgony (H(3) -> CX(3, 4)), a 2-es qubit kozvetlen szomszedja!
-  - EGYETLEN szimultan aramkor fut egyszerre a chipen!
-
-Karok:
-  - F kar: [0, 1, 2] kapja a GPE folyadek parametereit, [3, 4] szimultan letrehozza a Bell-part.
-           A mert [0, 1, 2] visszagerjeszti a GPE-t.
-  - N kar: [0, 1, 2] idle (nincs hajtas, alapallapot), mikozben [3, 4] fut.
-           A folyadek sem nem lep, sem nem gerjesztodik.
+Javitott valtozat (Amendment 1):
+  - Mindket kar UGYANAZOKAT a mikorohullamu forgatasokat kapja (F-kar parameterei),
+    igy a hajtas teljesen azonos!
+  - F kar: a folyadek lep (50 GPE lepes), parameterei kodolodnak, a mert ertekek visszagerjesztik.
+  - N kar: a fo aramkor az utolso F-parameterekkel fut, de a folyadek NEM lep es NEM gerjesztodik.
+  - Elrendezes: IBM Heron csucs-husegu belso lanc: [51, 52, 53, 54, 55]
+    [51, 52, 53] = fo GPE aramkor
+    [54, 55] = Bell-horgony (readout hiba < 0.5%, kapuhiba 0.13%)
+  - c = (N_00 + N_11) / shots, kizarolag mert countsbol.
 """
 
 import argparse
@@ -31,15 +29,14 @@ sys.path.insert(0, str(HERE))
 from fluid_sim import FluidSim
 
 
-def build_simultaneous_circuit(QuantumCircuit, a_f, f_f, phi_f, active=True):
+def build_simultaneous_circuit(QuantumCircuit, a, f, phi):
     # 5 qubit, 5 klasszikus bit: 0..2 = fo, 3..4 = Bell
     qc = QuantumCircuit(5, 5)
-    if active:
-        qc.ry(a_f, 0)
-        qc.ry(2.0 * math.pi * (f_f / 15.0), 1)
-        qc.ry(phi_f * math.pi, 2)
+    qc.ry(a, 0)
+    qc.ry(2.0 * math.pi * (f / 15.0), 1)
+    qc.ry(phi * math.pi, 2)
     
-    # Szimultan Bell-par a szomszedos 3, 4 qubiteken
+    # Szimultan Bell-par a kozvetlen szomszedos 3, 4 qubiteken
     qc.h(3)
     qc.cx(3, 4)
     
@@ -48,7 +45,7 @@ def build_simultaneous_circuit(QuantumCircuit, a_f, f_f, phi_f, active=True):
 
 
 def decode_main(counts, shots):
-    # bitstring hossza 5: bit4 bit3 bit2 bit1 bit0
+    # bitstring indexeles: c[4] c[3] c[2] c[1] c[0]
     p0 = sum(v for k, v in counts.items() if k[4] == "1") / shots
     p1 = sum(v for k, v in counts.items() if k[3] == "1") / shots
     p2 = sum(v for k, v in counts.items() if k[2] == "1") / shots
@@ -60,24 +57,24 @@ def decode_main(counts, shots):
 
 
 def extract_bell_correlation(counts, shots):
-    # Bell bitek a 3 es 4 pozicioban (k[1] es k[0] a balrol-jobbra indexelesnel)
-    # k string formaban: c[4] c[3] c[2] c[1] c[0]
+    # Bell bitek a c[3] es c[4] pozicioban (k[1] es k[0] a balrol indexelt stringben)
     n_00 = sum(v for k, v in counts.items() if k[0] == "0" and k[1] == "0")
     n_11 = sum(v for k, v in counts.items() if k[0] == "1" and k[1] == "1")
     return (n_00 + n_11) / shots
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Szimultan 5-qubites GPE-Bell teszt")
+    ap = argparse.ArgumentParser(description="Szimultan 5-qubites GPE-Bell teszt (Amendment 1)")
     ap.add_argument("--token-file", default=None)
     ap.add_argument("--backend", default="ibm_marrakesh")
-    ap.add_argument("--blocks", type=int, default=30, help="blokkok szama (1 blokk = 1 F + 1 N)")
+    ap.add_argument("--blocks", type=int, default=60, help="blokkok szama (1 blokk = 1 F + 1 N)")
     ap.add_argument("--shots", type=int, default=2048)
     ap.add_argument("--gpe-steps", type=int, default=50)
     ap.add_argument("--seed", type=int, default=20261107)
-    ap.add_argument("--layout", type=int, nargs=5, default=[0, 1, 2, 3, 4],
-                    help="fizikai 5-qubit lanc: 0..2 = fo, 3..4 = Bell")
+    ap.add_argument("--layout", type=int, nargs=5, default=[51, 52, 53, 54, 55],
+                    help="fizikai 5-qubit lanc: 0..2 = fo, 3..4 = Bell (alapertelmezett: optimalis belso Heron lanc)")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--dry-readout-error", type=float, default=0.005)
     args = ap.parse_args()
 
     from qiskit import QuantumCircuit, transpile
@@ -94,14 +91,21 @@ def main():
         schedule += [(b, arm) for arm in pair]
 
     if args.dry_run:
+        import numpy as np
         from qiskit.primitives import StatevectorSampler
         sampler = StatevectorSampler(seed=args.seed)
+        nrng = np.random.default_rng(args.seed)
         backend_name = "dry-run-statevector"
 
         def run(qc):
             res = sampler.run([qc], shots=args.shots).result()
             counts = res[0].data.c.get_counts()
-            return "dry-" + str(int(time.time() * 1000)), counts
+            noisy = {}
+            for k, v in counts.items():
+                for _ in range(v):
+                    bits = "".join(ch if nrng.random() > args.dry_readout_error else ("1" if ch == "0" else "0") for ch in k)
+                    noisy[bits] = noisy.get(bits, 0) + 1
+            return "dry-" + str(int(time.time() * 1000)), noisy
     else:
         if not args.token_file:
             sys.exit("Add meg a --token-file kapcsolot (vagy --dry-run).")
@@ -125,12 +129,13 @@ def main():
         "layout": args.layout,
         "schedule": [arm for _, arm in schedule],
         "preregistration": "docs/PREREGISTRATION-c_live_simultaneous.md",
+        "amendment": 1,
     }
     (out_dir / "campaign.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
 
     print("=" * 72)
     print(f"c_live_simultaneous | {backend_name} | {args.blocks} blokk = {2*args.blocks} job | shots={args.shots}")
-    print(f"5-qubites lanc: {args.layout} | fo: {args.layout[:3]} | Bell: {args.layout[3:]}")
+    print(f"5-qubites optimalis lanc: {args.layout} | fo: {args.layout[:3]} | Bell: {args.layout[3:]}")
     print("=" * 72)
 
     fluid = FluidSim(seed=args.seed)
@@ -149,8 +154,8 @@ def main():
             params = last
         a_f, f_f, phi_f, mode = params
 
-        active = (arm == "F")
-        qc = build_simultaneous_circuit(QuantumCircuit, a_f, f_f, phi_f, active=active)
+        # Mindket kar azonos (a_f, f_f, phi_f) hajtast kap!
+        qc = build_simultaneous_circuit(QuantumCircuit, a_f, f_f, phi_f)
         job_id, counts = run(qc)
 
         c_val = extract_bell_correlation(counts, args.shots)
