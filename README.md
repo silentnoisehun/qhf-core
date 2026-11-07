@@ -95,6 +95,21 @@ This repository archives the complete, step-by-step preregistered experimental c
   - **Decisive Cross-Backend Confirmation:** On `ibm_kingston`, the intermediate-angle residual shift is 5–10× smaller than on `ibm_marrakesh` ($-0.0015$, $+0.0032$, $+0.0012$, compared to $+0.014$ and $+0.008$ on Marrakesh). Under this higher-fidelity calibration, **all secondary metrics are consistent with null ($p = 0.41–0.52$)**. This confirms that the secondary divergence observed on `ibm_marrakesh` was a chip-specific microwave calibration artifact.
 * **Combined Conclusion:** Across both backends (`ibm_marrakesh` and `ibm_kingston`), both primary tests ($p = 0.411$ and $p = 0.252$) and secondary metrics are consistent with null. Under the preregistered decision rule, no difference between QPU-fed and noise-matched classical RNG-fed Gross–Pitaevskii fluids can be claimed, and the textbook quantum mechanics prediction stands.
 
+### Phase 5 — Angle-Resolved SPAM Calibration Test (Diagnostic)
+* **Objective:** Test whether the intermediate-angle residual shift observed on `ibm_marrakesh` is attributable to coherent microwave pulse over-rotation ($\theta \to \theta + \delta\theta$) or state-dependent readout confusion.
+* **Preregistration:** [`docs/PREREGISTRATION-angle_calibration.md`](docs/PREREGISTRATION-angle_calibration.md)
+* **Results & Preregistered Threshold:**
+  - Preregistered criterion for confirming coherent over-rotation: $R^2 > 0.85$ to the $\sin\theta$ template with peak $|\Delta p(\pi/2)| > 0.008$.
+  - Measured `ibm_marrakesh` ([53, 54, 55], job `dbnat5dt7fqc73aj845g`):
+    - Q53: $\Delta p(\pi/2) = +0.0161$, but fitted $R^2 = 0.7512$ (fails the $R^2 > 0.85$ threshold).
+    - Q54: $\Delta p(\pi/2) = +0.0121$, $R^2 = -0.0065$.
+    - Q55: $\Delta p(\pi/2) = -0.0040$ (isolated), $+0.0148$ (simultaneous), $R^2 = 0.0946$.
+  - Measured `ibm_kingston` ([48, 49, 50], job `dbnatos4148s7390kkhg`):
+    - Q48: $\Delta p(\pi/2) = -0.0062$, $R^2 = 0.0557$.
+    - Q49: $\Delta p(\pi/2) = +0.0116$, $R^2 = 0.3281$.
+    - Q50: $\Delta p(\pi/2) = -0.0018$, $R^2 = 0.0025$.
+* **Diagnostic Conclusion:** At 4096 shots, shot noise at $p \approx 0.5$ is $\sigma = \sqrt{0.5 \cdot 0.5 / 4096} \approx 0.0078$, which is on the order of the observed intermediate-angle residuals. Because neither backend met the preregistered threshold ($R^2 > 0.85$), **coherent over-rotation is not confirmed**. The exact mechanistic origin of the chip-dependent secondary divergence remains statistically unresolved / inconclusive.
+
 ---
 
 ## 📁 Repository Layout
