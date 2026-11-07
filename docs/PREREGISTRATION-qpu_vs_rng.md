@@ -2,7 +2,8 @@
 
 Author: Máté Róbert (ORCID 0009-0003-3986-6039)  
 Repository: https://github.com/silentnoisehun/qhf-bell-spectator  
-Date of registration: 2026-11-07 04:15:00 UTC (commit before any hardware run)
+Date of initial registration: 2026-11-07 03:15:00 UTC (04:15 CET) (commit `e358105` before any hardware run)  
+Date of Amendment 1: 2026-11-07 03:22:00 UTC (04:22 CET) (commit before any hardware run)
 
 ## Hypothesis
 
@@ -15,13 +16,22 @@ Direction is not predicted; the test is two-sided.
 ## Design
 
 - Scripts: `scripts/qpu_vs_rng.py` and `scripts/qpu_vs_rng_analyze.py`, seed 20261108.
-- $R = 20$ replicates, 40 iterations, 1024 shots, 50 GPE steps per iteration, fixed layout `[51, 52, 53]` on `ibm_marrakesh`.
+- $R = 20$ replicates, 40 iterations, 1024 shots, 50 GPE steps per iteration, fixed layout `[53, 54, 55]` on `ibm_marrakesh` (see Amendment 1).
 - Each replicate holds two fluids with the same seed (identical initial state): Q and C.
 - One job per iteration: the 20 main circuits built from the Q fluids' parameters, plus two calibration circuits ($|000\rangle$ and $|111\rangle$) on the same physical qubits. 40 jobs in total.
 - Arm Q: the measured per-qubit marginals are decoded and excite the Q fluid.
 - Arm C: the ideal probabilities $\sin^2(\theta/2)$ from the C fluid's own parameters are distorted with the readout error measured in the same job ($P(1|0)$, $P(0|1)$ per qubit), sampled binomially with the same number of shots, decoded the same way, and excite the C fluid.
 - The decoder uses only per-qubit marginals, so independent per-qubit binomial sampling in arm C is exact for what the fluid receives.
 - Calibration timestamps at the start and end of the run are saved in `campaign.json`.
+
+## Amendment 1 (Pre-Execution Hardware Audit)
+
+- **Qubit Layout Selection:** In the initial registration, layout `[51, 52, 53]` was specified. The live calibration on `ibm_marrakesh` revealed that physical qubit 51 exhibits a 15.9% readout error ($P(\text{err}) = 0.159$). Transmons with ~16% readout error are prone to within-job fluctuations, which could introduce spurious drifts between calibration circuits and main circuits. To ensure rigorous, artifact-free execution, the layout is reassigned to the ultra-low-noise chain **`[53, 54, 55]`**:
+  - Q53 readout error: $1.8\%$ ($0.0176$)
+  - Q54 readout error: $0.5\%$ ($0.0049$)
+  - Q55 readout error: $0.4\%$ ($0.0044$)
+  All three physical qubits operate with $<1.8\%$ readout error, guaranteeing sub-percent stability between the calibration circuits and the 20 replicate circuits.
+- **Timestamp correction:** The initial registration timestamp was recorded in CET (04:15) but labeled UTC; the corrected UTC timestamp is 03:15 UTC.
 
 ## Primary analysis and decision rule (fixed now)
 

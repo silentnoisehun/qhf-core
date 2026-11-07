@@ -32,7 +32,7 @@ def parse_args():
     parser.add_argument("--shots", type=int, default=1024)
     parser.add_argument("--gpe-steps", type=int, default=50)
     parser.add_argument("--seed", type=int, default=20261108)
-    parser.add_argument("--qubits", type=int, nargs="+", default=[51, 52, 53])
+    parser.add_argument("--qubits", type=int, nargs="+", default=[53, 54, 55])
     parser.add_argument("--dry-run", action="store_true", help="Local simulation without QPU hardware")
     return parser.parse_args()
 
