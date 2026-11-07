@@ -30,7 +30,7 @@ Direction is not predicted; the test is two-sided.
   - Q53 readout error: $1.8\%$ ($0.0176$)
   - Q54 readout error: $0.5\%$ ($0.0049$)
   - Q55 readout error: $0.4\%$ ($0.0044$)
-  All three physical qubits operate with $<1.8\%$ readout error, guaranteeing sub-percent stability between the calibration circuits and the 20 replicate circuits.
+  All three physical qubits operate with $<1.8\%$ readout error, expected to give sub-percent stability between the calibration circuits and the 20 replicate circuits.
 - **Timestamp correction:** The initial registration timestamp was recorded in CET (04:15) but labeled UTC; the corrected UTC timestamp is 03:15 UTC.
 
 ## Primary analysis and decision rule (fixed now)
