@@ -1,0 +1,24 @@
+{
+  "campaign": "20261107T012230Z",
+  "backend": "ibm_marrakesh",
+  "dry_run": false,
+  "bell_layout": [
+    0,
+    1
+  ],
+  "complete_blocks": 60,
+  "mean_c_F": 0.9305013020833334,
+  "mean_c_N": 0.9279622395833333,
+  "mean_diff": 0.0025390625,
+  "sd_diff": 0.020029076598656822,
+  "t": 0.9819470936707322,
+  "p_one_sided": 0.1650677594872224,
+  "first_half_mean_diff": 0.005826822916666667,
+  "second_half_mean_diff": -0.0007486979166666667,
+  "criteria": {
+    "delta>=0.003": false,
+    "p<0.01": false,
+    "both_halves_positive": false
+  },
+  "verdict": "H1 NEM TAMOGATOTT (a tankonyvi d = 0 all)"
+}
