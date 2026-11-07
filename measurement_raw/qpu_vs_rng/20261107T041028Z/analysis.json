@@ -1,0 +1,55 @@
+{
+  "preregistration": "docs/PREREGISTRATION-qpu_vs_rng.md",
+  "campaign_dir": "measurement_raw\\qpu_vs_rng\\20261107T041028Z",
+  "total_iterations": 40,
+  "evaluated_iterations": 30,
+  "burn_in": 10,
+  "num_replicates": 20,
+  "primary": {
+    "metric": "centroid_frequency_f",
+    "mean_D": 0.0022617725954812372,
+    "sd_D": 0.008585764363439566,
+    "replicate_diffs": [
+      -0.002305455708681653,
+      -0.0013365267421585614,
+      -0.00682579814790335,
+      -0.005666217331783768,
+      0.012276870930940598,
+      -0.0013156514964635935,
+      0.00022295637428820791,
+      0.0010145625121443513,
+      0.0067411072480680345,
+      0.01656613973687171,
+      -0.004167022485924626,
+      0.013660732076792886,
+      -0.012675266281814701,
+      0.010930219920566836,
+      0.0010548102719931396,
+      -0.0028693829669882986,
+      0.008615776269245423,
+      0.004115757180982782,
+      -0.009307680114807398,
+      0.01650552066425673
+    ],
+    "half1_mean_rep0_9": 0.0019371987375321974,
+    "half2_mean_rep10_19": 0.002586346453430277,
+    "same_sign_halves": true,
+    "exact_permutation_p": 0.2518310546875,
+    "h1_supported": false
+  },
+  "secondary": {
+    "amplitude_A": {
+      "mean_D": -0.0010924087410010108,
+      "permutation_p": 0.4389934539794922
+    },
+    "circular_std_phi": {
+      "mean_D": 0.009376757531897284,
+      "permutation_p": 0.40863037109375
+    },
+    "autocorr_lag1_f": {
+      "mean_D": -0.010813460511046697,
+      "permutation_p": 0.5248031616210938
+    }
+  },
+  "conclusion": "H1 NOT SUPPORTED: No statistically significant difference between QPU-fed and noise-matched classical RNG-fed Gross-Pitaevskii fluids beyond textbook shot noise and readout error."
+}
