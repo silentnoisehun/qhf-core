@@ -1,18 +1,20 @@
 {
-  "title": "qhf-core: Quantum-Hydrodynamic Feedback Engine and Measurement Audit on Superconducting QPUs",
-  "description": "High-performance Rust engine and measurement audit coupling Gross-Pitaevskii fluid dynamics with IBM Quantum Heron superconducting processors. Documents the algebraic operator analysis, comparison of unentangled projective tracking against CNOT marginal crosstalk, and classical/randomized control arm benchmarks.",
+  "title": "Quantum-Hydrodynamic Bell Spectator Campaign: Preregistered Tests on IBM Heron Superconducting Processors",
+  "description": "Complete 5-phase preregistered experimental campaign testing whether closed-loop Gross-Pitaevskii fluid dynamics exhibit deviations from the Born rule or non-Markovian spectator correlations on 156-qubit IBM Heron r2 superconducting quantum processors (ibm_marrakesh and ibm_kingston). Contains complete raw execution counts, calibration snapshots, algorithmic transmon layout selectors, and exact sign-flip permutation tests.",
   "keywords": [
     "quantum computing",
-    "Gross-Pitaevskii equation",
-    "Bose-Einstein condensate",
-    "closed-loop feedback",
-    "IBM Quantum Heron",
-    "measurement audit",
-    "operator crosstalk"
+    "gross-pitaevskii equation",
+    "bell state",
+    "spectator qubits",
+    "ibm quantum",
+    "heron r2",
+    "born rule",
+    "preregistration",
+    "reproducible science"
   ],
   "license": "MIT",
-  "version": "1.0.2",
-  "publication_date": "2026-11-02",
+  "version": "1.0.0",
+  "publication_date": "2026-11-07",
   "creators": [
     {
       "name": "Róbert, Máté",
@@ -21,12 +23,5 @@
     }
   ],
   "access_right": "open",
-  "upload_type": "software",
-  "related_identifiers": [
-    {
-      "relation": "isSupplementedBy",
-      "identifier": "https://github.com/silentnoisehun/qhf-core",
-      "resource_type": "software"
-    }
-  ]
+  "upload_type": "software"
 }

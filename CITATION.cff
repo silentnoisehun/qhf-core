@@ -1,23 +1,18 @@
 cff-version: 1.2.0
-message: "If you use this software or empirical data, please cite it as below."
+message: "If you use this dataset or software, please cite it as below."
 authors:
-  - family-names: "Rongyász"
+  - family-names: "Róbert"
     given-names: "Máté"
     orcid: "https://orcid.org/0009-0003-3986-6039"
-    email: "materobi86@gmail.com"
-    affiliation: "Silent Coder Labs"
-title: "qhf-core: Macroscopic Entrainment and Closed-Loop Attractor Dynamics between a Gross-Pitaevskii Condensate and a 156-Qubit Superconducting Processor"
-version: 1.0.2
-doi: 10.5281/zenodo.23890614
-date-released: 2026-11-02
-url: "https://github.com/silentnoisehun/qhf-core"
-repository-code: "https://github.com/silentnoisehun/qhf-core"
+title: "Quantum-Hydrodynamic Bell Spectator Campaign: Preregistered Tests on IBM Heron Superconducting Processors"
+version: 1.0.0
+date-released: 2026-11-07
+url: "https://github.com/silentnoisehun/qhf-bell-spectator"
 keywords:
   - "quantum computing"
-  - "Gross-Pitaevskii equation"
-  - "Bose-Einstein condensate"
-  - "closed-loop feedback"
-  - "IBM Quantum Heron"
-  - "dynamical systems"
-  - "attractor formation"
+  - "superconducting qubits"
+  - "gross-pitaevskii equation"
+  - "bell state"
+  - "heron r2"
+  - "preregistration"
 license: MIT
