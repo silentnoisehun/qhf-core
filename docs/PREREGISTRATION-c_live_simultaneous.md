@@ -1,9 +1,10 @@
 # Preregistration: Simultaneous 5-qubit Spectator Entrainment Test on Heron QPU
 
 Author: Máté Róbert (ORCID 0009-0003-3986-6039)
-Repository: https://github.com/silentnoisehun/qhf-core
+Repository: https://github.com/silentnoisehun/qhf-bell-spectator
 Date of registration: 2026-11-07 01:55:00 UTC
-Amendment 1 Date: 2026-11-07 02:00:00 UTC (before hardware execution)
+Amendment 1 Date: 2026-11-07 02:00:00 UTC
+Amendment 2 Date: 2026-11-07 02:10:00 UTC (before hardware execution)
 
 ## Hypothesis
 
@@ -12,17 +13,20 @@ Amendment 1 Date: 2026-11-07 02:00:00 UTC (before hardware execution)
 **Standard quantum mechanics with isolated transmons and no-signaling predicts no difference ($d = 0$).**
 Both arms execute identical microwave rotations on the main register; the only difference is whether the fluid steps and receives feedback, or remains decoupled.
 
-## Amendment 1 Updates (Pre-Run Audit)
+## Amendments (Pre-Execution Audit)
 
-1. **Drive Equivalence Across Arms:**
-   Both F and N arms execute the circuit with the exact same microwave rotation parameters $(A, f, \phi)$ extracted from the fluid. In arm F, decoded measurements excite the GPE fluid and the fluid steps; in arm N, the fluid neither steps nor receives feedback. This isolates the fluid closed-loop coupling from trivial drive-induced Stark/crosstalk shifts.
-2. **Optimal Transmon Chain Selection:**
-   Instead of the chip boundary edge `[0..4]`, the physical layout is fixed to the high-fidelity internal line `[51, 52, 53, 54, 55]`:
-   - Main GPE register: `[51, 52, 53]`
-   - Bell spectator pair: `[54, 55]` (readout error $< 0.49\%$, 2Q gate error $0.13\%$, baseline $c \approx 0.985-0.990$).
-3. **Statistical Power & Sample Size:**
-   - 60 blocks (120 total jobs), 2048 shots per iteration.
-   - Standard deviation target $\sigma \approx 0.008-0.010$, providing $>80\%$ power to detect shifts $\ge 0.003$.
+### Amendment 1:
+1. **Drive Equivalence Across Arms:** Both F and N arms execute the circuit with identical microwave rotations extracted from the fluid.
+2. **Optimal Transmon Chain:** Mapped to the highest-fidelity internal line on the Heron lattice: `[51, 52, 53, 54, 55]`. Bell pair `[54, 55]` features $<0.49\%$ readout error and $0.13\%$ two-qubit gate error (baseline $c \approx 0.985-0.990$).
+3. **Simultaneous Single-Circuit Architecture:** A single 5-qubit circuit runs both the main GPE register `[51, 52, 53]` and the spectator Bell pair `[54, 55]` simultaneously.
+
+### Amendment 2 (Audit & Pre-Run Refinement):
+1. **Strict Block-Level Angle Synchronization:**
+   In every block, the GPE fluid advances 50 steps once at the beginning of the block to extract $(A, f, \phi)$. Regardless of whether F or N runs first in the randomized block schedule, both arms execute with the exact same $(A, f, \phi)$ parameters. Only arm F's measurement feedback is returned to the fluid. This eliminates any order-dependent angle lag.
+2. **Calibration Snapshot Logging:**
+   Physical backend properties (`backend.properties()`), including individual qubit readout errors and two-qubit gate errors for the chain `[51..55]`, are captured directly before the run and permanently archived in `campaign.json`.
+3. **Sensitivity / Statistical Power:**
+   For $N = 60$ blocks with $\sigma \approx 0.009$, statistical power is $\approx 55–60\%$ for $\Delta = 0.003$ and $>80\%$ for $\Delta \ge 0.004$.
 
 ## Primary Analysis & Decision Rule (Strictly Directional H1)
 

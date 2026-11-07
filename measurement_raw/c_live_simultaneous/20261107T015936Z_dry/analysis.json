@@ -1,0 +1,28 @@
+{
+  "campaign": "20261107T015936Z",
+  "backend": "dry-run-statevector",
+  "dry_run": true,
+  "layout": [
+    51,
+    52,
+    53,
+    54,
+    55
+  ],
+  "complete_blocks": 60,
+  "mean_c_F": 0.9899658203125,
+  "mean_c_N": 0.9906982421875,
+  "mean_diff": -0.000732421875,
+  "sd_diff": 0.0034684341946278276,
+  "t": -1.6356993185378232,
+  "p_one_sided": 0.9463865533044657,
+  "p_two_sided": 0.10722689339106858,
+  "first_half_mean_diff": -0.000146484375,
+  "second_half_mean_diff": -0.001318359375,
+  "criteria": {
+    "delta>=0.003": false,
+    "p<0.01": false,
+    "both_halves_positive": false
+  },
+  "verdict": "H1 NEM TAMOGATOTT (a tankonyvi d = 0 all)"
+}

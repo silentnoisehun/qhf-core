@@ -2,15 +2,12 @@
 """
 c_live_simultaneous: Szimultan 5-qubites spektator csatolas tesztje Heron processzoron.
 
-Javitott valtozat (Amendment 1):
-  - Mindket kar UGYANAZOKAT a mikorohullamu forgatasokat kapja (F-kar parameterei),
-    igy a hajtas teljesen azonos!
-  - F kar: a folyadek lep (50 GPE lepes), parameterei kodolodnak, a mert ertekek visszagerjesztik.
-  - N kar: a fo aramkor az utolso F-parameterekkel fut, de a folyadek NEM lep es NEM gerjesztodik.
-  - Elrendezes: IBM Heron csucs-husegu belso lanc: [51, 52, 53, 54, 55]
-    [51, 52, 53] = fo GPE aramkor
-    [54, 55] = Bell-horgony (readout hiba < 0.5%, kapuhiba 0.13%)
-  - c = (N_00 + N_11) / shots, kizarolag mert countsbol.
+Amendment 2:
+  - Blokkonkent EGYSZER szamolunk parametereket: az F es az N kar MINDEN blokkban
+    GARANTALTAN UGYANAZOKAT a szogeket kapja, fuggetlenul a blokkon beluli sorrendtol!
+  - Csak az F kar merese gerjeszti vissza a GPE folyadekot.
+  - Kalibracios snapshot: a qubitek hibai (readout, 2Q gate error) mentve a campaign.json-ba.
+  - Optimalis Heron lanc: [51, 52, 53, 54, 55].
 """
 
 import argparse
@@ -30,13 +27,12 @@ from fluid_sim import FluidSim
 
 
 def build_simultaneous_circuit(QuantumCircuit, a, f, phi):
-    # 5 qubit, 5 klasszikus bit: 0..2 = fo, 3..4 = Bell
     qc = QuantumCircuit(5, 5)
     qc.ry(a, 0)
     qc.ry(2.0 * math.pi * (f / 15.0), 1)
     qc.ry(phi * math.pi, 2)
     
-    # Szimultan Bell-par a kozvetlen szomszedos 3, 4 qubiteken
+    # Szimultan Bell-par a szomszedos 3, 4 qubiteken
     qc.h(3)
     qc.cx(3, 4)
     
@@ -57,22 +53,20 @@ def decode_main(counts, shots):
 
 
 def extract_bell_correlation(counts, shots):
-    # Bell bitek a c[3] es c[4] pozicioban (k[1] es k[0] a balrol indexelt stringben)
     n_00 = sum(v for k, v in counts.items() if k[0] == "0" and k[1] == "0")
     n_11 = sum(v for k, v in counts.items() if k[0] == "1" and k[1] == "1")
     return (n_00 + n_11) / shots
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Szimultan 5-qubites GPE-Bell teszt (Amendment 1)")
+    ap = argparse.ArgumentParser(description="Szimultan 5-qubites GPE-Bell teszt (Amendment 2)")
     ap.add_argument("--token-file", default=None)
     ap.add_argument("--backend", default="ibm_marrakesh")
     ap.add_argument("--blocks", type=int, default=60, help="blokkok szama (1 blokk = 1 F + 1 N)")
     ap.add_argument("--shots", type=int, default=2048)
     ap.add_argument("--gpe-steps", type=int, default=50)
     ap.add_argument("--seed", type=int, default=20261107)
-    ap.add_argument("--layout", type=int, nargs=5, default=[51, 52, 53, 54, 55],
-                    help="fizikai 5-qubit lanc: 0..2 = fo, 3..4 = Bell (alapertelmezett: optimalis belso Heron lanc)")
+    ap.add_argument("--layout", type=int, nargs=5, default=[51, 52, 53, 54, 55])
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--dry-readout-error", type=float, default=0.005)
     args = ap.parse_args()
@@ -84,11 +78,8 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
 
     rng = random.Random(args.seed)
-    schedule = []
-    for b in range(args.blocks):
-        pair = ["F", "N"]
-        rng.shuffle(pair)
-        schedule += [(b, arm) for arm in pair]
+
+    calib_snapshot = {}
 
     if args.dry_run:
         import numpy as np
@@ -96,6 +87,7 @@ def main():
         sampler = StatevectorSampler(seed=args.seed)
         nrng = np.random.default_rng(args.seed)
         backend_name = "dry-run-statevector"
+        calib_snapshot = {"dry_run_noise": args.dry_readout_error}
 
         def run(qc):
             res = sampler.run([qc], shots=args.shots).result()
@@ -117,6 +109,27 @@ def main():
         backend_name = backend.name
         sampler = SamplerV2(backend)
 
+        # Kalibracio rogzitese
+        props = backend.properties()
+        cm = backend.coupling_map
+        ro_errors = {q: props.readout_error(q) for q in args.layout}
+        gate_errors = {}
+        for i in range(len(args.layout) - 1):
+            pair = [args.layout[i], args.layout[i+1]]
+            try:
+                ge = props.gate_error('ecr', pair) if pair in cm else props.gate_error('cz', pair)
+            except Exception:
+                ge = None
+            gate_errors[f"({pair[0]},{pair[1]})"] = ge
+
+        calib_snapshot = {
+            "readout_error": ro_errors,
+            "gate_error_2q": gate_errors,
+            "bell_pair_qubits": args.layout[3:],
+            "bell_pair_readout_sum": ro_errors[args.layout[3]] + ro_errors[args.layout[4]],
+            "bell_pair_2q_gate_error": gate_errors.get(f"({args.layout[3]},{args.layout[4]})")
+        }
+
         def run(qc):
             isa = transpile(qc, backend=backend, initial_layout=args.layout, optimization_level=1, seed_transpiler=args.seed)
             job = sampler.run([isa], shots=args.shots)
@@ -127,54 +140,54 @@ def main():
         "campaign": tag, "backend": backend_name, "dry_run": args.dry_run, "blocks": args.blocks,
         "shots": args.shots, "gpe_steps": args.gpe_steps, "seed": args.seed,
         "layout": args.layout,
-        "schedule": [arm for _, arm in schedule],
+        "calibration": calib_snapshot,
         "preregistration": "docs/PREREGISTRATION-c_live_simultaneous.md",
-        "amendment": 1,
+        "amendment": 2,
     }
     (out_dir / "campaign.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
 
     print("=" * 72)
     print(f"c_live_simultaneous | {backend_name} | {args.blocks} blokk = {2*args.blocks} job | shots={args.shots}")
-    print(f"5-qubites optimalis lanc: {args.layout} | fo: {args.layout[:3]} | Bell: {args.layout[3:]}")
+    print(f"5-qubites lanc: {args.layout} | fo: {args.layout[:3]} | Bell: {args.layout[3:]}")
     print("=" * 72)
 
     fluid = FluidSim(seed=args.seed)
-    last = None
+    global_idx = 0
 
-    for i, (blk, arm) in enumerate(schedule):
-        t0 = time.time()
-        if arm == "F" or last is None:
-            for _ in range(args.gpe_steps):
-                fluid.gpe_step()
-            mode, a_f, f_f, phi_f, _ = fluid.extract_modal_parameters()
-            params = (a_f, f_f, phi_f, mode)
+    for blk in range(args.blocks):
+        # 1. A blokk elejen a folyadek lep 50 GPE lepest:
+        for _ in range(args.gpe_steps):
+            fluid.gpe_step()
+        mode, a_f, f_f, phi_f, _ = fluid.extract_modal_parameters()
+
+        # 2. A blokk mindket karja PONTOSAN ugyanazokat a szogeket kapja:
+        pair = ["F", "N"]
+        rng.shuffle(pair)
+
+        for arm in pair:
+            t0 = time.time()
+            qc = build_simultaneous_circuit(QuantumCircuit, a_f, f_f, phi_f)
+            job_id, counts = run(qc)
+
+            c_val = extract_bell_correlation(counts, args.shots)
+            a_q, f_q, phi_q = decode_main(counts, args.shots)
+
+            # 3. KIZAROLAG az F kar gerjeszti vissza a folyadekot:
             if arm == "F":
-                last = params
-        else:
-            params = last
-        a_f, f_f, phi_f, mode = params
+                fluid.excite(a_q, f_q, phi_q)
 
-        # Mindket kar azonos (a_f, f_f, phi_f) hajtast kap!
-        qc = build_simultaneous_circuit(QuantumCircuit, a_f, f_f, phi_f)
-        job_id, counts = run(qc)
-
-        c_val = extract_bell_correlation(counts, args.shots)
-        a_q, f_q, phi_q = decode_main(counts, args.shots)
-
-        if arm == "F":
-            fluid.excite(a_q, f_q, phi_q)
-
-        rec = {
-            "index": i, "block": blk, "arm": arm, "job_id": job_id,
-            "utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-            "fluid_params_used": {"A": a_f, "f": f_f, "phi": phi_f, "mode": mode},
-            "decoded": {"A": a_q, "f": f_q, "phi": phi_q},
-            "counts": counts,
-            "c_measured": c_val,
-            "fluid_excited": arm == "F",
-        }
-        (out_dir / f"iter{i:04d}_{arm}_{job_id}.json").write_text(json.dumps(rec, indent=2), encoding="utf-8")
-        print(f"[{i+1:03d}/{len(schedule)}] blokk {blk:02d} {arm} | job {job_id} | c={c_val:.4f} | {time.time()-t0:.1f}s")
+            rec = {
+                "index": global_idx, "block": blk, "arm": arm, "job_id": job_id,
+                "utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                "fluid_params_used": {"A": a_f, "f": f_f, "phi": phi_f, "mode": mode},
+                "decoded": {"A": a_q, "f": f_q, "phi": phi_q},
+                "counts": counts,
+                "c_measured": c_val,
+                "fluid_excited": arm == "F",
+            }
+            (out_dir / f"iter{global_idx:04d}_blk{blk:02d}_{arm}_{job_id}.json").write_text(json.dumps(rec, indent=2), encoding="utf-8")
+            print(f"[{global_idx+1:03d}/{2*args.blocks}] blokk {blk:02d} {arm} | job {job_id} | c={c_val:.4f} | {time.time()-t0:.1f}s")
+            global_idx += 1
 
     print(f"Kesz. Nyers adat: {out_dir}")
     print(f"Kiertekeles: python scripts/c_live_simultaneous_analyze.py {out_dir}")
