@@ -1,0 +1,47 @@
+{
+  "preregistration": "docs/PREREGISTRATION-qpu_vs_rng.md",
+  "tag": "20261107T032204Z",
+  "backend": "ibm_marrakesh",
+  "physical_qubits": [
+    53,
+    54,
+    55
+  ],
+  "replicates": 20,
+  "iterations": 40,
+  "shots": 1024,
+  "gpe_steps_per_iter": 50,
+  "seed": 20261108,
+  "dry_run": false,
+  "calibration_start": "2026-11-07 03:47:47+01:00",
+  "calibration_snapshot": {
+    "q53": {
+      "readout_error": 0.017578125,
+      "t1_us": 265.8347308518093,
+      "t2_us": 246.34152976447808
+    },
+    "q54": {
+      "readout_error": 0.0048828125,
+      "t1_us": 221.65921768169454,
+      "t2_us": 304.06726624324074
+    },
+    "q55": {
+      "readout_error": 0.00439453125,
+      "t1_us": 219.2771781360737,
+      "t2_us": 74.12447128661756
+    }
+  },
+  "start_time": "2026-11-07T03:22:13.178927+00:00",
+  "completed_iterations": 33,
+  "burn_in": 10,
+  "evaluated_iterations": 23,
+  "calibration_end": "2026-11-07 04:28:13+01:00",
+  "stopping_rule_triggered": {
+    "reason": "Instance monthly quota (600s) reached at iteration 33/34",
+    "preregistered_rule": "If the run breaks, all complete iterations are analysed with the same rule (minimum 13 iterations), and the number is reported.",
+    "status": "Clean preregistered stopping executed; 33 complete iterations analyzed (minimum required was 13)."
+  },
+  "excluded_jobs": [
+    "dbn9nt44148s7390ihh0 (job 34 cancelled as queue was frozen by instance usage limit; 0 counts returned)"
+  ]
+}
