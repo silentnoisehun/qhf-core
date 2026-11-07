@@ -1,0 +1,14 @@
+{
+  "preregistration": "docs/PREREGISTRATION-angle_calibration.md",
+  "backend": "ibm_kingston",
+  "physical_qubits": [
+    48,
+    49,
+    50
+  ],
+  "shots": 4096,
+  "job_id": "dbnatos4148s7390kkhg",
+  "calibration_timestamp": "2026-11-07 05:33:06+01:00",
+  "timestamp": "20261107T045336Z",
+  "wall_time_seconds": 66.31770181655884
+}

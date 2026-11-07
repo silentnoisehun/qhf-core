@@ -1,0 +1,14 @@
+{
+  "preregistration": "docs/PREREGISTRATION-angle_calibration.md",
+  "backend": "ibm_marrakesh",
+  "physical_qubits": [
+    53,
+    54,
+    55
+  ],
+  "shots": 4096,
+  "job_id": "dbnat5dt7fqc73aj845g",
+  "calibration_timestamp": "2026-11-07 05:36:41+01:00",
+  "timestamp": "20261107T045219Z",
+  "wall_time_seconds": 64.37625908851624
+}
