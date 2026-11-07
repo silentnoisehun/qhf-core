@@ -69,6 +69,11 @@ This repository archives the complete, step-by-step preregistered experimental c
   - Exact two-sided sign-flip permutation $p$-value: **$p = 0.411070$** (threshold: $p < 0.01$)
   - Secondary metrics: $D(A) = -0.00036$ ($p = 0.803$), $D(\sigma_\phi) = +0.07860$ ($p < 0.0001$), $D(\text{autocorr}_f) = +0.01459$ ($p < 0.0001$).
   - **Decision:** $p = 0.411 \gg 0.01$. **$H_1$ is NOT supported. Standard textbook quantum mechanics holds.** The QPU-fed Gross–Pitaevskii fluid and the noise-matched classical RNG-fed fluid are statistically indistinguishable.
+* **Physical & Methodological Discovery (Analysis of Secondary Metrics):**
+  - While the primary metric $D(f)$ is purely zero-centered ($p = 0.411$), two dynamic secondary metrics exhibited strong divergence: circular spread of $\phi$ ($p = 0.00001$) and lag-1 autocorrelation of $f$ ($p = 0.000008$).
+  - Detailed raw data audit reveals the physical cause: transmon physical qubits consistently measured higher $|1\rangle$ population at intermediate rotation angles than predicted by pure $\sin^2(\theta/2)$ ($+0.014$ on Q53, $+0.008$ on Q55).
+  - The in-situ $|000\rangle$ and $|111\rangle$ calibration circuits measure readout error strictly at the computational basis poles ($\theta = 0$ and $\theta = \pi$). They do not capture coherent unitary over/under-rotations or angle-dependent drive distortions occurring at intermediate angles $\theta \in (0, \pi)$.
+  - Consequently, the classical C-arm noise model matched the end-point readout errors but not the continuous coherent drive errors. The closed-loop fluid simulation was sensitive enough to detect this subtle hardware drive imperfection, providing a valuable methodological lesson for quantum-classical hybrid architectures.
 
 ---
 
