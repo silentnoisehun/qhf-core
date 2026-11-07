@@ -1,5 +1,5 @@
 {
-  "preregistration": "docs/PREREGISTRATION-qpu_vs_rng.md",
+  "preregistration": "docs/PREREGISTRATION-qpu_vs_rng_replication.md",
   "tag": "20261107T041028Z",
   "backend": "ibm_kingston",
   "physical_qubits": [
@@ -34,5 +34,6 @@
   "start_time": "2026-11-07T04:10:37.788027+00:00",
   "calibration_end": "2026-11-07 05:19:03+01:00",
   "end_time": "2026-11-07T04:36:39.014505+00:00",
-  "total_wall_seconds": 1561.2259333133698
+  "total_wall_seconds": 1561.2259333133698,
+  "parent_preregistration": "docs/PREREGISTRATION-qpu_vs_rng.md"
 }

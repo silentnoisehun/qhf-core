@@ -92,8 +92,8 @@ This repository archives the complete, step-by-step preregistered experimental c
     - Mean $D(A) = -0.00109$ ($p = 0.4390$)
     - Mean $D(\sigma_\phi) = +0.00938$ ($p = 0.4086$)
     - Mean $D(\text{autocorr}_f) = -0.01081$ ($p = 0.5248$)
-  - **Decisive Cross-Backend Confirmation:** On `ibm_kingston`, where the physical transmon chain `[48, 49, 50]` features sub-0.8% readout noise and better-tuned drive pulses, **all secondary metrics collapsed completely to null ($p > 0.40$)**. This decisively proves that the secondary divergence observed on `ibm_marrakesh` was 100% a machine-specific microwave calibration artifact, not a physical deviation from standard quantum mechanics.
-* **Combined Conclusion:** Across all backends (`ibm_marrakesh` and `ibm_kingston`), both primary ($p = 0.411$ and $p = 0.252$) and secondary metrics confirm the null hypothesis. Standard textbook quantum mechanics stands fully vindicated.
+  - **Decisive Cross-Backend Confirmation:** On `ibm_kingston`, the intermediate-angle residual shift is 5–10× smaller than on `ibm_marrakesh` ($-0.0015$, $+0.0032$, $+0.0012$, compared to $+0.014$ and $+0.008$ on Marrakesh). Under this higher-fidelity calibration, **all secondary metrics are consistent with null ($p = 0.41–0.52$)**. This confirms that the secondary divergence observed on `ibm_marrakesh` was a chip-specific microwave calibration artifact.
+* **Combined Conclusion:** Across both backends (`ibm_marrakesh` and `ibm_kingston`), both primary tests ($p = 0.411$ and $p = 0.252$) and secondary metrics are consistent with null. Under the preregistered decision rule, no difference between QPU-fed and noise-matched classical RNG-fed Gross–Pitaevskii fluids can be claimed, and the textbook quantum mechanics prediction stands.
 
 ---
 
