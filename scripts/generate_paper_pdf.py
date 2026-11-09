@@ -10,7 +10,7 @@ from reportlab.platypus import (
 )
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 
-OUT_PATH = r"E:\Silent Coder\qoi-core\docs\paper\paper.pdf"
+OUT_PATH = r"E:\AURORA\sources\qhf-core\docs\paper\paper.pdf"
 os.makedirs(os.path.dirname(OUT_PATH), exist_ok=True)
 
 def build_pdf():
@@ -121,7 +121,7 @@ def build_pdf():
     ))
     story.append(Paragraph(
         "<b>Rongyász (Máté)</b><br/>"
-        "Independent Research & AI Mesh Architecture — Silent Coder Labs<br/>"
+        "Independent researcher<br/>"
         "Email: materobi86@gmail.com | ORCID: 0009-0003-3986-6039<br/>"
         "<i>Date: November 2, 2026 | Preregistration ID: QOI-CORE-20261102-GPE-QPU</i>",
         author_style

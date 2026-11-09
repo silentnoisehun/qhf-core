@@ -7,7 +7,7 @@
 **Preregistered experimental campaigns testing macroscopic quantum-hydrodynamic spectator entrainment and closed feedback loops on a 156-qubit superconducting quantum processor (`ibm_marrakesh`, Heron r2).**
 
 **Author:** Máté Róbert (Rongyász)  
-**Affiliation:** Silent Coder Labs  
+**Affiliation:** Independent researcher  
 **ORCID:** [0009-0003-3986-6039](https://orcid.org/0009-0003-3986-6039)  
 **Contact:** materobi86@gmail.com  
 

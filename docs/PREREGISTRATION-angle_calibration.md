@@ -1,7 +1,7 @@
 # Preregistration: Phase 5 — Angle-Resolved SPAM Calibration & Coherent Over-rotation Test
 
 **Author:** Máté Róbert (ORCID: [0009-0003-3986-6039](https://orcid.org/0009-0003-3986-6039))  
-**Affiliation:** Silent Coder Labs  
+**Affiliation:** Independent researcher  
 **Repository:** `https://github.com/silentnoisehun/qhf-bell-spectator`  
 **Date:** 2026-11-07  
 **Status:** Frozen prior to quantum execution  
