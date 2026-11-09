@@ -1,12 +1,13 @@
 cff-version: 1.2.0
 message: "If you use this dataset or software, please cite it as below."
 authors:
-  - family-names: "Róbert"
-    given-names: "Máté"
+  - family-names: "Máté"
+    given-names: "Róbert"
     orcid: "https://orcid.org/0009-0003-3986-6039"
+    affiliation: "Independent researcher"
 title: "Quantum-Hydrodynamic Bell Spectator Campaign: Preregistered Tests on IBM Heron Superconducting Processors"
-version: 1.0.0
-date-released: 2026-11-07
+version: 1.1.0
+date-released: 2026-11-09
 url: "https://github.com/silentnoisehun/qhf-bell-spectator"
 keywords:
   - "quantum computing"
@@ -15,4 +16,5 @@ keywords:
   - "bell state"
   - "heron r2"
   - "preregistration"
+  - "negative result"
 license: MIT

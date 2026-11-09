@@ -1,6 +1,6 @@
 {
   "title": "Quantum-Hydrodynamic Bell Spectator Campaign: Preregistered Tests on IBM Heron Superconducting Processors",
-  "description": "Complete 5-phase preregistered experimental campaign testing whether closed-loop Gross-Pitaevskii fluid dynamics exhibit deviations from the Born rule or non-Markovian spectator correlations on 156-qubit IBM Heron r2 superconducting quantum processors (ibm_marrakesh and ibm_kingston). Contains complete raw execution counts, calibration snapshots, algorithmic transmon layout selectors, and exact sign-flip permutation tests.",
+  "description": "Complete 5-phase preregistered experimental campaign testing whether closed-loop Gross-Pitaevskii fluid dynamics exhibit deviations from the Born rule or non-Markovian spectator correlations on 156-qubit IBM Heron r2 superconducting quantum processors (ibm_marrakesh and ibm_kingston). Contains complete raw execution counts, calibration snapshots, algorithmic transmon layout selectors, and exact sign-flip permutation tests. Key results: closed-loop mode-count test negative (Section 6.1); CNOT crosstalk explained by QM model (Section 6.2); passive space memory null (quantum-pooled-holdout).",
   "keywords": [
     "quantum computing",
     "gross-pitaevskii equation",
@@ -13,12 +13,12 @@
     "reproducible science"
   ],
   "license": "MIT",
-  "version": "1.0.0",
-  "publication_date": "2026-11-07",
+  "version": "1.1.0",
+  "publication_date": "2026-11-09",
   "creators": [
     {
-      "name": "Róbert, Máté",
-      "affiliation": "Independent Quantum Researcher, Silent Coder Lab",
+      "name": "Máté, Róbert",
+      "affiliation": "Independent researcher",
       "orcid": "0009-0003-3986-6039"
     }
   ],

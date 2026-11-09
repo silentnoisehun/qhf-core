@@ -3,11 +3,17 @@
 
 **Originator & Principal Architect:** Róbert, Máté (*Silentnoisehun*)  
 **Location:** Győrújfalu, Hungary  
-**Affiliation:** Független Rendszerépítő & Kvantumkutató  
+**Affiliation:** Independent researcher  
 **ORCID:** [0009-0003-3986-6039](https://orcid.org/0009-0003-3986-6039)  
 **Kapcsolat:** materobi86@gmail.com  
 **Repozitóriumok:** [GitHub - silentnoisehun](https://github.com/silentnoisehun) | [Zenodo DOI Archívum](https://zenodo.org)  
 **Kiadás:** 2026 Monochrome Edition // Mermaid-Class
+
+> **Státusz (2026-11-09).** Ez a dokumentum **architekturális vízió**, nem mérési jelentés.
+> A benne szereplő állítások közül a mérhetőket a repók előregisztrált futásai tesztelték:
+> a zárt hurok módusszám-tesztje negatív (6.1), a CNOT-áthallás a QM jóslatát igazolta (6.2),
+> a passzív tér-memória null (quantum-pooled-holdout). Ahol a szöveg „bizonyítva" szerepel,
+> az architekturális állításra vonatkozik, nem fizikai bizonyításra.
 
 ---
 
@@ -144,13 +150,14 @@ A kognitív hullámarchitektúra elméletét közvetlenül összekapcsoltuk a fi
 
 ## 6. Kísérleti Eredmények Valós IBM Heron Hardveren
 
-### 6.1 Működő Zárt Hurok (Run `140630Z`, 80 Iteráció)
+### 6.1 Zárt Hurok: módusszám-tesztje negatív (F7, `closed_loop_20261102T163026Z`, 50 iteráció)
 * **Amplitúdó ($A$):** $r = +0.9738$
 * **Frekvencia ($f$):** **$r = +0.9832$** (MAE = $0.0053$)
 * **Fázis ($\varphi$):** $r = +0.9977$
-* **Eredmény:** A Gross–Pitaevskii folyadék és a transmon qubitek közötti zárt hurok stabil maradt, bizonyítva az élő kvantum-klasszikus szinkronizációt.
+* **Eredmény:** A futás során a kódolás→dekódolás hűsége magas (r(A) = 0.9738, r(f) = 0.9832, r(φ) = 0.9977), ami a standard kvantummechanika jóslata egy RY-forgatásra és mérésre: ez a műszer pontosságát méri, nem szinkronizációt. Ebben a futásban a folyadék **nem** volt a hurokban (a paraméterek a QPU-ról jöttek vissza, de a folyadék állapotát nem írták vissza), ezért a futás **nem teszteli** a kvantum–klasszikus szinkronizáció hipotézisét.
+* **A hipotézis státusza:** a zárt hurok előregisztrált tesztje (`PREREGISTRATION-20261102.md`, futás `closed_loop_20261102T163026Z`, 50 iteráció) **nem teljesült**: mind az 50 iterációban `mode_argmax = 0`, a szabály legalább 4 különböző módust kért. A hipotézis tehát **nem igazolt**, és a jelenlegi adat a 0-módusba omló dinamikát mutat.
 
-### 6.2 A Kvantum-Áthallás Felfedezése és Elméleti Bizonyítása
+### 6.2 CNOT-áthallás: egy kódolási hiba, amelyet a QM-modell pontosan leír
 Amikor 3 paramétert CNOT kapukkal fűztünk össze ($\text{CNOT}(0,1) \circ RY_1 \circ \dots$), a frekvencia leolvasás összeomlott ($r = -0.8527$). 
 
 **Az analitikus igazolás:** A CNOT kapu miatt a mért valószínűség sűrűségmátrixa:
@@ -159,6 +166,8 @@ A kapott jel 50-szer érzékenyebb volt az amplitúdóra ($A$), mint a frekvenci
 * **Elméleti modell jóslata:** $2.122$
 * **Hardver által mért érték:** $2.221 \pm 0.142$
 * **Egyezés: $0.7\sigma$!** A mérés hajszálpontosan igazolta a kvantummechanikai áthallás elméletét.
+
+**Megjegyzés a „felfedezés" szóhoz:** a CNOT-tal fűzött kódolásnál a frekvencia-leolvasás összeomlott (r = −0.8527), és a mért 2.221 ± 0.142 érték 0.7σ-n belül egyezett a QM-modell 2.122-es jóslatával. Ez **a QM jóslatának igazolása**, egy kódolási hiba mellett — nem új fizika. A fejezet eredménye ezért mérnöki (a CNOT-áthallás felismerése és javítása), nem fizikai felfedezés.
 
 ## 7. A Megoldás: Zéró-Áthallásos (Zero-Crosstalk) Transzszíver
 
